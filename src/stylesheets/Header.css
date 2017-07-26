@@ -1,0 +1,56 @@
+.Main-menu {
+  background-color: #222;
+  height: 40px;
+  padding: 10px;
+  color: red;
+}
+
+.Main-menu > div {
+    width: 100%;
+    float: right;
+    margin: auto;
+    text-align: center;
+}
+
+.Main-menu > div > h1 {
+    display: inline-block;
+    line-height: 40px;
+    margin: auto;
+    margin-left: 10%;
+    top: 50%;
+}
+
+
+.Social {
+    padding-right: 40px;
+    display: inline-block;
+    padding-top: 0;
+    float: right;
+}
+
+img {
+  height: 40px;
+  width: 40px;
+  outline: none;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.NavBar {
+
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

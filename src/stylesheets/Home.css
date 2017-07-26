@@ -1,0 +1,42 @@
+.circle-container {
+	position: relative;
+  width: 36em;
+  height: 36em;
+  padding: 1em;
+  /*border: dashed 1px;*/
+  border-radius: 50%;
+  margin: 1.75em auto 0;
+}
+
+.circle-container li {
+	display: block;
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 4em; height: 4em;
+  margin: -2em;
+}
+
+.circle-container .center {
+	display: block;
+	position: relative;
+	margin: auto;
+	padding-top: 4.5em;
+	width: 70%;
+	height: 70%;
+}
+
+.circle-container img { 
+	display: block; 
+	margin: auto;
+	width: 60px; 
+	height: 60px;
+}
+
+.deg0 { transform: translate(18em); } /* 12em = half the width of the wrapper */
+.deg45 { transform: rotate(45deg) translate(18em) rotate(-45deg); }
+.deg135 { transform: rotate(135deg) translate(18em) rotate(-135deg); }
+.deg180 { transform: translate(-18em); }
+.deg225 { transform: rotate(225deg) translate(18em) rotate(-225deg); }
+.deg315 { transform: rotate(315deg) translate(18em) rotate(-315deg); }
+
+ul { list-style-type: none; }
