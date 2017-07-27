@@ -1,3 +1,7 @@
+.home-container h1 {
+	color: red;
+}
+
 .circle-container {
 	position: relative;
   width: 36em;
@@ -5,10 +9,18 @@
   padding: 1em;
   /*border: dashed 1px;*/
   border-radius: 50%;
-  margin: 1.75em auto 0;
+ 	margin: 1.75em auto 0;
 }
 
-.circle-container li {
+.center {
+	display: block;
+  position: absolute;
+  width: 32em;
+  height: 32em;
+  margin: -16em;
+}
+
+li {
 	display: block;
   position: absolute;
   top: 50%; left: 50%;
@@ -16,13 +28,12 @@
   margin: -2em;
 }
 
-.circle-container .center {
-	display: block;
-	position: relative;
+.circle-container .center img {
+	display: block; 
 	margin: auto;
-	padding-top: 4.5em;
-	width: 70%;
-	height: 70%;
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
 }
 
 .circle-container img { 

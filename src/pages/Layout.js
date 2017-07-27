@@ -8,7 +8,7 @@ class Layout extends Component {
   render() {
     return (
     	<div>
-    		<Sticky>
+    		<Sticky stickyStyle={{zIndex: 2}}>
     			<Header/>
     		</Sticky>
       	<App/>
