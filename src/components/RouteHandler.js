@@ -13,9 +13,9 @@ class RouteHandler extends Component {
         return (
           <div>
     	    <RouteTransition
+            styles={{ position: 'absolute' }}
             pathname={location.pathname}
-            className="transition-wrapper"
-            atEnter={{ translateX: -100 }}
+            atEnter={{ translateX: 100 }}
             atLeave={{ translateX: 0 }}
             atActive={{ translateX: 0 }}
             mapStyles={styles => ({ transform: `translateX(${styles.translateX}%)` })}

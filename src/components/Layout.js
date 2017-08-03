@@ -8,10 +8,12 @@ class Layout extends Component {
   render() {
     return (
     	<div>
-    		<Sticky stickyStyle={{zIndex: 2}}>
+    		<Sticky stickyStyle={{zIndex: 3}}>
     			<Header/>
     		</Sticky>
-      	<RouteHandler/>
+        <div>
+      	  <RouteHandler/>
+        </div>
       </div>
     );
   }
