@@ -21,14 +21,14 @@
 }
 
 
-.Social {
+.Main-menu .Social {
     padding-right: 40px;
     display: inline-block;
     padding-top: 0;
     float: right;
 }
 
-img {
+.Main-menu img {
   height: 40px;
   width: 40px;
   outline: none;
@@ -46,9 +46,6 @@ img {
   font-size: large;
 }
 
-.NavBar {
-
-}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

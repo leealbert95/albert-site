@@ -18,17 +18,6 @@ class Home extends Component {
     				<li className="deg315"><Link to='/test'><img src={Circle}/></Link></li>
     			</ul>
     		</nav>
-    		<div>
-    			<h1>Welcome !</h1>
-    			<p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-    		</div>
     	</div>
     );
   }

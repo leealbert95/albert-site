@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from '../components/Header.js';
+import Header from './Header.js';
 import { Switch, Route } from 'react-router-dom';
 import Sticky from 'react-sticky-el';
-import App from '../components/App.js';
+import RouteHandler from './RouteHandler.js';
 
 class Layout extends Component {
   render() {
@@ -11,7 +11,7 @@ class Layout extends Component {
     		<Sticky stickyStyle={{zIndex: 2}}>
     			<Header/>
     		</Sticky>
-      	<App/>
+      	<RouteHandler/>
       </div>
     );
   }

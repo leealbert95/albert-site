@@ -1,0 +1,7 @@
+.about-container {
+	height: 100%; width: 100%;
+}
+
+.about-container h1 {
+  color: blue;
+}
