@@ -4,6 +4,8 @@ import { RouteTransition } from 'react-router-transition';
 import Test from '../pages/Test.js';
 import Home from '../pages/Home.js';
 import About from '../pages/About.js';
+import Photos from '../pages/Photos.js';
+import Places from '../pages/Places.js';
 
 class RouteHandler extends Component {
 	
@@ -25,6 +27,8 @@ class RouteHandler extends Component {
               <Route exact path='/' component={Home}/>
               <Route path='/test' component={Test}/> 
               <Route path='/about' component={About}/>
+              <Route path='/photos' component={Photos}/>
+              <Route path='/places' component={Places}/>
             </Switch>
           </RouteTransition>
           </div>

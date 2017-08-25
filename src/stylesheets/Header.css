@@ -1,8 +1,8 @@
 .Main-menu {
-  background-color: #222;
+  background-color: rgba(204,204,204,0.90);
   height: 50px;
   padding: 10px;
-  color: red;
+  color: black;
 }
 
 .Main-menu > div {
@@ -10,13 +10,14 @@
     float: right;
     margin: auto;
     text-align: center;
+    z-index: 1000;
 }
 
 .Main-menu > div > h1 {
     display: inline-block;
     line-height: 40px;
     margin: auto;
-    margin-left: 10%;
+    margin-left: 17%;
     top: 50%;
 }
 

@@ -1,8 +1,8 @@
 .home-container {
-	background-color: #cce7ff;
 	height: 100%;
 	width: 100%;
-	padding-top: 1px;
+	padding-top: 10px;
+	overflow: hidden;
 }
 
 .home-container h1 {
@@ -13,7 +13,7 @@
 	position: relative;
   width: 36em;
   height: 36em;
-  padding: 1em;
+  padding: 0.25em;
   /*border: dashed 1px;*/
   border-radius: 50%;
  	margin: 1.75em auto 0;
