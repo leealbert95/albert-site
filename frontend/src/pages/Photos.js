@@ -22,7 +22,7 @@ class Photos extends Component {
   }
 
   componentDidMount() {
-    fetch('/photos')
+    fetch('api/photos')
       .then(res => res.json())
       .then(images => this.setState({ images }));
   }
@@ -93,17 +93,18 @@ class Photos extends Component {
 
   onButtonClick(e) {
     e.preventDefault();
-    console.log(this.state.currentImage);
+
     var cur = this.state.currentImage
     this.props.getPhotosData(this.state.images[cur]);
-
     this.props.history.push('/places');
   }
 
   getCurrentImage(cur) {
     this.setState({
       currentImage: cur
-    })
+    });
+
+    console.log(this.state.images[cur]);
   }
 
   render() {

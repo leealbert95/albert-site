@@ -72,6 +72,7 @@ class Places extends Component {
   render() {
     const defaultCenter = { lat: 33.70116, lng: -117.80791 };
     const center = this.props.center ? this.props.center : defaultCenter;
+    console.log("coordinates: " + this.props.center);
     return (
       <div style={{height: 600, overflow: "hidden"}}>
         <MyMap 

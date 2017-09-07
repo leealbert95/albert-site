@@ -6,6 +6,7 @@ import Home from '../pages/Home.js';
 import About from '../pages/About.js';
 import Photos from '../pages/Photos.js';
 import Places from '../pages/Places.js';
+import Uploads from '../pages/Uploads.js';
 
 class RouteHandler extends Component {
 
@@ -48,6 +49,7 @@ class RouteHandler extends Component {
               <Route path='/about' component={About}/>
               <Route path='/photos' render={() => <Photos getPhotosData={this.getPhotosData} history={history}/>}/>
               <Route path='/places' render={() => <Places getPlacesData={this.getPlacesData} center={this.state.mapCenter}/>}/>
+              <Route path='/uploads' component={Uploads}/>
             </Switch>
           </RouteTransition>
           </div>
