@@ -8,75 +8,30 @@ class Places extends Component {
     super(props);
 
     this.state = {
-      markers: [
-      {
-        position: {
-          lat: 33.70116, lng: -117.80791
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: 50.56, lng: -60.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: -45.56, lng: -40.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: 12.56, lng: -11.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: 10.56, lng: -50.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: 80.56, lng: -60.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: -20.56, lng: -40.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      {
-        position: {
-          lat: 12.56, lng: -31.235
-        },
-        key: "HAHA",
-        defaultAnimation: 2,
-      },
-      ] 
+      markers: [] 
     }
+  }
+
+  componentDidMount() {
+    fetch('api/places')
+      .then(res => res.json())
+      .then(markers => this.setState({ markers }));
+  }
+
+  componentWillUnmount() {
+    this.props.resetMapCenter();
   }
  
   render() {
-    const defaultCenter = { lat: 33.70116, lng: -117.80791 };
+    const defaultCenter = { lat: 20, lng: 0 };
+    const zoom = this.props.center ? 9 : 2;
     const center = this.props.center ? this.props.center : defaultCenter;
-    console.log("coordinates: " + this.props.center);
+    console.log(this.state.markers);
     return (
       <div style={{height: 600, overflow: "hidden"}}>
         <MyMap 
           markers={this.state.markers}
+          zoom={zoom}
           center={center}
         />
       </div> 

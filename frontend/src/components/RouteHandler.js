@@ -18,6 +18,7 @@ class RouteHandler extends Component {
 
     this.getPhotosData = this.getPhotosData.bind(this);
     this.getPlacesData.bind(this);
+    this.resetMapCenter = this.resetMapCenter.bind(this);
   }
 
   getPlacesData(data) {
@@ -26,6 +27,12 @@ class RouteHandler extends Component {
   getPhotosData(data) {
     this.setState({
       mapCenter: data.coordinates
+    });
+  }
+
+  resetMapCenter() {
+    this.setState({
+      mapCenter: null
     });
   }
 	
@@ -48,7 +55,7 @@ class RouteHandler extends Component {
               <Route path='/test' component={Test}/> 
               <Route path='/about' component={About}/>
               <Route path='/photos' render={() => <Photos getPhotosData={this.getPhotosData} history={history}/>}/>
-              <Route path='/places' render={() => <Places getPlacesData={this.getPlacesData} center={this.state.mapCenter}/>}/>
+              <Route path='/places' render={() => <Places getPlacesData={this.getPlacesData} center={this.state.mapCenter} resetMapCenter={this.resetMapCenter}/>}/>
               <Route path='/uploads' component={Uploads}/>
             </Switch>
           </RouteTransition>

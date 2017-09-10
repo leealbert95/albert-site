@@ -8,7 +8,8 @@ var multer = require('multer');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var photos = require('./routes/photos')
+var photos = require('./routes/photos');
+var places = require('./routes/places');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(multer({ storage: storage }).array('file'));
 app.use('/', index);
 app.use('/users', users);
 app.use('/api/photos', photos);
+app.use('/api/places', places);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

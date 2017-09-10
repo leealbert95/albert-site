@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
-    defaultZoom={8}
+    defaultZoom={props.zoom}
     defaultCenter={props.center}
   >
   	{props.markers.map(marker => 
@@ -18,9 +18,7 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   </GoogleMap>
 ));
 
-/*
- * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
- */
+
 export default class MyMap extends Component {
 
 	constructor(props) {
@@ -43,6 +41,7 @@ export default class MyMap extends Component {
         }
         markers={this.props.markers}
         onMarkerClick={this.onMarkerClick}
+        zoom={this.props.zoom}
         center={this.props.center}
       />
     );

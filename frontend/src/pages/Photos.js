@@ -9,8 +9,9 @@ class Photos extends Component {
     super(props);
     
     this.state = {
-      images: [],
-      currentImage: 0
+      imageBase: [], // Holds all photos returned by initial GET request, to eliminate the need for more GET requests 
+      images: [], // Holds current state's photos, contents may change depending on user's search and sort options
+      currentImage: 0 // Current photo being viewed 
     };
 
     this.sortGallery = this.sortGallery.bind(this);
@@ -24,7 +25,7 @@ class Photos extends Component {
   componentDidMount() {
     fetch('api/photos')
       .then(res => res.json())
-      .then(images => this.setState({ images }));
+      .then(images => this.setState({ images: images, imageBase: images }));
   }
 
   sortByDate(images, s) {
@@ -72,6 +73,7 @@ class Photos extends Component {
     );
   }
 
+  // Main function to handle sort requests
   sortGallery() {
     console.log('sortGallery called');
     var command = this.refs.selector.value;
@@ -91,6 +93,7 @@ class Photos extends Component {
     })
   }
 
+  // Function to be called when user clicks location icon in lightbox
   onButtonClick(e) {
     e.preventDefault();
 
@@ -99,12 +102,11 @@ class Photos extends Component {
     this.props.history.push('/places');
   }
 
+  // Tracks which image is being currently viewed in gallery
   getCurrentImage(cur) {
     this.setState({
       currentImage: cur
     });
-
-    console.log(this.state.images[cur]);
   }
 
   render() {
@@ -132,6 +134,8 @@ class Photos extends Component {
       });
 
     //var _react = require('react');
+
+    console.log(typeof this.state.currentImage.tags);
     
     return (
       <div style={{backgroundColor: "rgba(255,255,255,0)", height: "100%"}}>

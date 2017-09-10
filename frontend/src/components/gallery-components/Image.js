@@ -100,7 +100,8 @@ class Image extends Component {
     }
 
     render () {
-        var tags = (typeof this.props.item.tags === 'undefined') ? <noscript/> :
+        console.log(this.props.item.tags[0].title)
+        var tags = (this.props.item.tags[0].title === '') ? <noscript/> :
                 this.props.item.tags.map((tag) => {
                     return <div title={tag.title}
                     key={"tag-"+tag.value}
@@ -111,6 +112,7 @@ class Image extends Component {
                         <span style={this.tagStyle()}>{tag.value}</span>
                         </div>;
                 });
+    
 
         var customOverlay = (typeof this.props.item.customOverlay === 'undefined')
                 ? <noscript/> :

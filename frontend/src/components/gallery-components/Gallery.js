@@ -213,6 +213,7 @@ class Gallery extends Component {
         if (containerWidth == 0) return [];
 
         var items = images.slice();
+        console.log(typeof items[0]);
         for (var t in items) {
             this.setThumbScale(items[t]);
         }
@@ -226,6 +227,7 @@ class Gallery extends Component {
         for(var r in rows) {
             for(var i in rows[r]) {
                 var item = rows[r][i];
+                console.log(item.tags)
                 if(this.props.maxRows) {
                     if(r < this.props.maxRows) {
                         thumbs.push(item);

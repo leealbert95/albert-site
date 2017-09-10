@@ -11,6 +11,7 @@ class Uploads extends Component {
 			address: '',
 			caption: '',
 			date: '',
+			tags: '',
 			coordinates: null,
 		}
 		this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -19,6 +20,8 @@ class Uploads extends Component {
 		this.handleLocationSelect = this.handleLocationSelect.bind(this);
 		this.handleCaptionChange = this.handleCaptionChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
+		this.handleTagChange = this.handleTagChange.bind(this);
+		this.deleteAll = this.deleteAll.bind(this);
 	}
 
 	handleFile(file) {
@@ -63,8 +66,22 @@ class Uploads extends Component {
 		console.log(date);
 	}
 
+	handleTagChange(tags) {
+		this.setState({
+			tags: tags,
+		});
+		console.log(tags);
+	}
+
+
 	onFormSubmit(e) {
 		e.preventDefault();
+		if (this.state.imagefile === '') {
+			alert("You forgot to upload the image!");
+			return;
+		}
+		console.log('FormSubmit');
+
 		const data = new FormData();
 		data.append('file', this.state.imagefile);
 		data.append('lat', this.state.coordinates.lat);
@@ -72,6 +89,7 @@ class Uploads extends Component {
 		data.append('caption', this.state.caption);
 		data.append('date', this.state.date)
 		data.append('location', this.state.address);
+		data.append('tags', this.state.tags);
 
 		fetch('api/photos/uploads', {
 			method: 'POST',
@@ -83,8 +101,20 @@ class Uploads extends Component {
 			address: '',
 			caption: '',
 			date: '',
+			tags: '',
 			coordinates: null, 
 		})
+	}
+
+	deleteAll(e) {
+		e.preventDefault();
+		console.log('Delete');
+		if (window.confirm('Are you sure you want to delete all photos?')) {
+			console.log('delete');
+			fetch('api/photos/delete', {
+				method: 'DELETE'
+			});
+		}
 	}
 
 	render() {
@@ -114,7 +144,7 @@ class Uploads extends Component {
 			<div>
 				<form onSubmit={(e) => this.onFormSubmit(e)} encType="multipart/form-data">  
 				  <label htmlFor="file">Select your image:</label>
-				  <input type="file" onChange={(e) => this.handleFile(e.target.files[0])}/>
+				  <input type="file" id="FileUpload" onChange={(e) => this.handleFile(e.target.files[0])}/>
 				  <span className="hint">Supported files: jpg, jpeg, png.</span>
 				  <div style={{ height: 10 }}/>
 				  <label>Select location</label>
@@ -129,8 +159,12 @@ class Uploads extends Component {
 				  <div style={{ height: 10 }}/>
 				  <input type="text" placeholder="Enter date (MM/DD/YYYY)" value={this.state.date} onChange={(e) => this.handleDateChange(e.target.value)}/>
 				  <div style={{ height: 10 }}/>
+				  <input type="text" placeholder="Enter tags separated by a space" value={this.state.tags} onChange={(e) => this.handleTagChange(e.target.value)}/>
+				  <div style={{ height: 10 }}/>
 				  <button type="submit">upload</button>
 				</form>
+				<div style={{ height: 50 }}/>
+				<button type="button" onClick={(e) => this.deleteAll(e)}>Delete all photos</button>
 			</div>
 		);
 	}
