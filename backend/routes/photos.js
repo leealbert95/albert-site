@@ -78,6 +78,8 @@ router.post('/uploads', function(req, res, next) {
 
 	deleteTempFile(tempPath);
 	addToMarkers(req);
+
+	res.send('Post Finished');
 });
 
 router.delete('/delete', function(req, res, next) {
@@ -89,6 +91,8 @@ router.delete('/delete', function(req, res, next) {
 	Marker.remove(function(err) {
 		if (err) return handleError(err);
 	});
+
+	res.send('Delete Finished');
 })
 
 //Helper functions/methods
@@ -126,7 +130,7 @@ function getTagArray(tags) {
 
 		for (var i = 0; i < length; i++) {	
 			console.log(tagValues[i]);
-			if (tag.replace(/\s/g, '').length > 0) {
+			if (tagValues[i].replace(/\s/g, '').length > 0) {
 				tag = tagValues[i].toLowerCase();
 				tag_sc = tag.charAt(0).toUpperCase() + tag.slice(1); 
 				tagArray.push({ title: tag_sc, value: tag_sc });

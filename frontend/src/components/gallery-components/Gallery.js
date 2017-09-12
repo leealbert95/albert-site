@@ -67,6 +67,7 @@ class Gallery extends Component {
             currentImage: index,
             lightboxIsOpen: true
         });
+        console.log('current image', this.state.currentImage)
         this.props.getCurrentImage(index);
     }
 
@@ -227,7 +228,6 @@ class Gallery extends Component {
         for(var r in rows) {
             for(var i in rows[r]) {
                 var item = rows[r][i];
-                console.log(item.tags)
                 if(this.props.maxRows) {
                     if(r < this.props.maxRows) {
                         thumbs.push(item);

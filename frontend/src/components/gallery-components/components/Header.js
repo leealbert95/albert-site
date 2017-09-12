@@ -69,7 +69,7 @@ const defaultStyles = {
 		display: 'flex',
 		justifyContent: 'space-between',
 		height: defaults.header.height,
-		color: defaults.footer.color
+		color: defaults.footer.color,
 	},
 	text: {
 		display: 'inline-block',

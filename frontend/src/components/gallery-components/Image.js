@@ -20,7 +20,7 @@ class Image extends Component {
             fontSize: "75%",
             fontWeight: "600",
             lineHeight: "1",
-            color: "yellow",
+            color: "white",
             background: "rgba(0,0,0,0.65)",
             textAlign: "center",
             whiteSpace: "nowrap",
@@ -100,7 +100,6 @@ class Image extends Component {
     }
 
     render () {
-        console.log(this.props.item.tags[0].title)
         var tags = (this.props.item.tags[0].title === '') ? <noscript/> :
                 this.props.item.tags.map((tag) => {
                     return <div title={tag.title}
@@ -108,7 +107,7 @@ class Image extends Component {
                     style={{display: "inline-block",
                             cursor: 'pointer',
                             pointerEvents: 'visible',
-                            margin: "2px"}}>
+                            margin: "1px"}}>
                         <span style={this.tagStyle()}>{tag.value}</span>
                         </div>;
                 });

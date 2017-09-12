@@ -94,16 +94,10 @@ class Uploads extends Component {
 		fetch('api/photos/uploads', {
 			method: 'POST',
 			body: data
-		})
-
-		this.setState({
-			imagefile: '',
-			address: '',
-			caption: '',
-			date: '',
-			tags: '',
-			coordinates: null, 
-		})
+		}).then(function(res) {
+			if (res)
+				window.location.reload();
+		});
 	}
 
 	deleteAll(e) {
@@ -141,7 +135,7 @@ class Uploads extends Component {
       </div>); 
 
 		return (
-			<div>
+			<div style = {{ paddingTop: "70px" }}>
 				<form onSubmit={(e) => this.onFormSubmit(e)} encType="multipart/form-data">  
 				  <label htmlFor="file">Select your image:</label>
 				  <input type="file" id="FileUpload" onChange={(e) => this.handleFile(e.target.files[0])}/>

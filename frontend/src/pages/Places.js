@@ -28,7 +28,7 @@ class Places extends Component {
     const center = this.props.center ? this.props.center : defaultCenter;
     console.log(this.state.markers);
     return (
-      <div style={{height: 600, overflow: "hidden"}}>
+      <div style={{height: 600, overflow: "hidden", paddingTop: "50px"}}>
         <MyMap 
           markers={this.state.markers}
           zoom={zoom}
