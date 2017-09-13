@@ -188,8 +188,7 @@ class Gallery extends Component {
     }
 
     render () {
-        console.log('CurrentImage: ', this.state.currentImage);
-
+        
         var images = this.state.thumbnails.map((item, idx) => {
             return <Image
             key={"Image-"+idx+"-"+item.src}
