@@ -17,10 +17,6 @@ class Gallery extends Component {
 
         this.onResize = this.onResize.bind(this);
         this.closeLightbox = this.closeLightbox.bind(this);
-        this.gotoImage = this.gotoImage.bind(this);
-        this.gotoNext = this.gotoNext.bind(this);
-        this.gotoPrevious = this.gotoPrevious.bind(this);
-        this.onClickImage = this.onClickImage.bind(this);
         this.openLightbox = this.openLightbox.bind(this);
         this.onSelectImage = this.onSelectImage.bind(this);
     }
@@ -40,6 +36,7 @@ class Gallery extends Component {
         }
     }
 
+
     componentDidUpdate () {
         if (!this._gallery) return;
         if (this._gallery.clientWidth
@@ -57,18 +54,18 @@ class Gallery extends Component {
     }
 
     openLightbox (index, event) {
+        console.log('openLightbox', index);
         if (event) {
             event.preventDefault();
         }
         if (this.props.lightboxWillOpen) {
             this.props.lightboxWillOpen.call(this, index);
         }
+        this.props.getCoordinates(this.state.images[index].coordinates);
         this.setState({
             currentImage: index,
             lightboxIsOpen: true
         });
-        console.log('current image', this.state.currentImage)
-        this.props.getCurrentImage(index);
     }
 
     closeLightbox () {
@@ -76,32 +73,14 @@ class Gallery extends Component {
             this.props.lightboxWillClose.call(this);
         }
 
+        //this.props.resetCoordinates;
+        console.log('closeLightbox')
         this.setState({
-            currentImage: 0,
+            currentImage: null,
             lightboxIsOpen: false
         });
-        this.props.getCurrentImage(0);
     }
 
-    gotoPrevious () {
-        this.props.getCurrentImage(this.state.currentImage - 1);
-        this.setState({
-            currentImage: this.state.currentImage - 1
-        });
-    }
-
-    gotoNext () {
-        this.props.getCurrentImage(this.state.currentImage + 1);
-        this.setState({
-            currentImage: this.state.currentImage + 1
-        });
-    }
-
-    onClickImage () {
-        if (this.state.currentImage === this.props.images.length - 1)
-            return;
-        this.gotoNext();
-    }
 
     onSelectImage (index, event) {
         event.preventDefault();
@@ -109,14 +88,9 @@ class Gallery extends Component {
             this.props.onSelectImage.call(this, index, this.state.images[index]);
     }
 
-    gotoImage (index) {
-        this.props.getCurrentImage(index);
-        this.setState({
-            currentImage: index
-        });
-    }
 
     getOnClickThumbnailFn () {
+        console.log('getOnClickThumbnailFn');
         if(!this.props.onClickThumbnail && this.props.enableLightbox)
             return this.openLightbox;
         if(this.props.onClickThumbnail)
@@ -124,34 +98,7 @@ class Gallery extends Component {
         return null;
     }
 
-    getOnClickLightboxThumbnailFn () {
-        if(!this.props.onClickLightboxThumbnail
-           && this.props.showLightboxThumbnails)
-            return this.gotoImage;
-        if(this.props.onClickLightboxThumbnail
-           && this.props.showLightboxThumbnails)
-            return this.props.onClickLightboxThumbnail;
-        return null;
-    }
-
-    getOnClickImageFn () {
-        if(this.props.onClickImage)
-            return this.props.onClickImage;
-        return this.onClickImage;
-    }
-
-    getOnClickPrevFn () {
-        if(this.props.onClickPrev)
-            return this.props.onClickPrev;
-        return this.gotoPrevious;
-    }
-
-    getOnClickNextFn () {
-        if(this.props.onClickNext)
-            return this.props.onClickNext;
-        return this.gotoNext;
-    }
-
+   
     calculateCutOff (len, delta, items) {
         var cutoff = [];
         var cutsum = 0;
@@ -214,7 +161,6 @@ class Gallery extends Component {
         if (containerWidth == 0) return [];
 
         var items = images.slice();
-        console.log(typeof items[0]);
         for (var t in items) {
             this.setThumbScale(items[t]);
         }
@@ -242,6 +188,8 @@ class Gallery extends Component {
     }
 
     render () {
+        console.log('CurrentImage: ', this.state.currentImage);
+
         var images = this.state.thumbnails.map((item, idx) => {
             return <Image
             key={"Image-"+idx+"-"+item.src}
@@ -270,16 +218,13 @@ class Gallery extends Component {
             enableKeyboardInput={this.props.enableKeyboardInput}
             imageCountSeparator={this.props.imageCountSeparator}
             isOpen={this.state.lightboxIsOpen}
-            onClickImage={this.getOnClickImageFn()}
-            onClickNext={this.getOnClickNextFn()}
-            onClickPrev={this.getOnClickPrevFn()}
             showCloseButton={this.props.showCloseButton}
             showImageCount={this.props.showImageCount}
             onClose={this.closeLightbox}
             width={this.props.lightboxWidth}
             theme={this.props.theme}
-            onClickThumbnail={this.getOnClickLightboxThumbnailFn()}
             showThumbnails={this.props.showLightboxThumbnails}
+            getCoordinates={this.props.getCoordinates}
                 />
                 </div>
         );
@@ -305,6 +250,10 @@ Gallery.propTypes = {
             ),
             thumbnailWidth: PropTypes.number.isRequired,
             thumbnailHeight: PropTypes.number.isRequired,
+            coordinates: PropTypes.shape({
+                lat: PropTypes.number.isRequired,
+                lng: PropTypes.number.isRequired
+            }),
             isSelected: PropTypes.bool
         })
     ).isRequired,

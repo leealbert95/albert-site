@@ -125,7 +125,9 @@ export default class PaginatedThumbnails extends Component {
 		);
 	}
 	render () {
-		const { images, currentImage, onClickThumbnail, offset } = this.props;
+		const { images, currentImage, offset } = this.props;
+
+		console.log(images.length);
 
 		const totalCount = 2 * offset + 1; // show $offset extra thumbnails on each side
 		let thumbnails = [];
@@ -144,7 +146,7 @@ export default class PaginatedThumbnails extends Component {
 					<Thumbnail key={baseOffset + idx}
 						{...img}
 						index={baseOffset + idx}
-						onClick={onClickThumbnail}
+						onClick={this.props.onClickThumbnail}
 						active={baseOffset + idx === currentImage} />
 				))}
 				{this.renderArrowNext()}

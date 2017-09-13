@@ -12,23 +12,18 @@ class Photos extends Component {
       imageBase: [], // Holds all photos returned by initial GET request, to eliminate the need for more GET requests 
       images: [], // Holds current state's photos, contents may change depending on user's search and sort options
       displayedImages: [], // Holds current photos to display (for smoother performance) 
-      currentImage: 0, // Current photo being viewed 
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 23,
+      MAX_DISPLAY: 100,
     };
-
-    this.handleGalleryState = this.handleGalleryState.bind(this);
-    this.sortGallery = this.sortGallery.bind(this);
-    this.sortByDate = this.sortByDate.bind(this);
-    this.sortByTag = this.sortByTag.bind(this);
-    this.sortByLocation = this.sortByLocation.bind(this);
+    
     this.onButtonClick = this.onButtonClick.bind(this); 
-    this.getCurrentImage = this.getCurrentImage.bind(this);
-    this.changePage = this.changePage.bind(this); 
+    this.changePage = this.changePage.bind(this);
+    this.sortGallery = this.sortGallery.bind(this);
   }
 
   componentDidMount() {
+    console.log('component mounted')
     fetch('api/photos')
       .then(res => res.json())
       .then(images => this.handleGalleryState(images, true));
@@ -143,9 +138,6 @@ class Photos extends Component {
   // Function to be called when user clicks location icon in lightbox
   onButtonClick(e) {
     e.preventDefault();
-
-    var cur = this.state.currentImage
-    this.props.getPhotosData(this.state.displayedImages[cur]);
     this.props.history.push('/places');
   }
 
@@ -153,19 +145,14 @@ class Photos extends Component {
     var page = this.refs.selector.value;
     this.setState({
       displayedImages: this.state.images[page - 1],
-      currentImage: 0,
       currentPage: page,
     })
   }
 
-  // Tracks which image is being currently viewed in gallery component
-  getCurrentImage(cur) {
-    this.setState({
-      currentImage: cur
-    });
-  }
 
   render() {
+
+    console.log('Photos');
   
     var options = [];
 
@@ -198,7 +185,7 @@ class Photos extends Component {
 
     //var _react = require('react');
 
-    console.log(this.state.currentImage);
+    console.log(this.state);
     
     return (
       <div style={{ backgroundColor: "rgba(255,255,255,0)", height: "100%", paddingTop: "70px" }}>
@@ -219,10 +206,13 @@ class Photos extends Component {
           overflow: "auto"}}>
           <Gallery 
             images={images}
+            getCoordinates={this.props.getCoordinates}
+            resetCoordinates={this.props.resetCoordinates}
             enableImageSelection={false}
             showLightboxThumbnails={true}
             getCurrentImage={this.getCurrentImage}
             onButtonClick={this.onButtonClick}
+            showLightboxThumbnails={false}
           />
         </div>
       </div>

@@ -22,7 +22,11 @@ class Lightbox extends Component {
 			'gotoPrev',
 			'closeBackdrop',
 			'handleKeyboardInput',
+			'onClickImage',
 		]);
+		this.state = {
+			currentImage: 0,
+		}
 	}
 	getChildContext () {
 		return {
@@ -30,7 +34,6 @@ class Lightbox extends Component {
 		};
 	}
 	componentDidMount () {
-		console.log('Lightbox mounted');
 		if (this.props.isOpen && this.props.enableKeyboardInput) {
 			window.addEventListener('keydown', this.handleKeyboardInput);
 		}
@@ -39,8 +42,36 @@ class Lightbox extends Component {
 		if (!canUseDom) return;
 
 		// preload images
+		this.preloadImageWrapper(nextProps); 
+
+		// add/remove event listeners
+		if (!this.props.isOpen && nextProps.isOpen && nextProps.enableKeyboardInput) {
+			window.addEventListener('keydown', this.handleKeyboardInput);
+		}
+		if (!nextProps.isOpen && nextProps.enableKeyboardInput) {
+			window.removeEventListener('keydown', this.handleKeyboardInput);
+		}
+
+		if (this.props.currentImage != nextProps.currentImage) {
+			this.setState({
+				currentImage: nextProps.currentImage
+			})
+		}
+	}
+	componentWillUnmount () {
+		console.log('Lightbox unmount');
+		if (this.props.enableKeyboardInput) {
+			window.removeEventListener('keydown', this.handleKeyboardInput);
+		}
+	}
+
+	// ==============================
+	// METHODS
+	// ==============================
+
+	preloadImageWrapper(nextProps) {
 		if (nextProps.preloadNextImage) {
-			const currentIndex = this.props.currentImage;
+			const currentIndex = this.state.currentImage;
 			const nextIndex = nextProps.currentImage + 1;
 			const prevIndex = nextProps.currentImage - 1;
 			let preloadIndex;
@@ -60,24 +91,7 @@ class Lightbox extends Component {
 				this.preloadImage(nextIndex);
 			}
 		}
-
-		// add/remove event listeners
-		if (!this.props.isOpen && nextProps.isOpen && nextProps.enableKeyboardInput) {
-			window.addEventListener('keydown', this.handleKeyboardInput);
-		}
-		if (!nextProps.isOpen && nextProps.enableKeyboardInput) {
-			window.removeEventListener('keydown', this.handleKeyboardInput);
-		}
 	}
-	componentWillUnmount () {
-		if (this.props.enableKeyboardInput) {
-			window.removeEventListener('keydown', this.handleKeyboardInput);
-		}
-	}
-
-	// ==============================
-	// METHODS
-	// ==============================
 
 	preloadImage (idx) {
 		const image = this.props.images[idx];
@@ -93,25 +107,40 @@ class Lightbox extends Component {
 		}
 	}
 	gotoNext (event) {
-		if (this.props.currentImage === (this.props.images.length - 1)) return;
+		if (this.state.currentImage === (this.props.images.length - 1)) return;
 		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		this.props.onClickNext();
-
+		this.setState({
+            currentImage: this.state.currentImage + 1
+        });
 	}
 	gotoPrev (event) {
-		if (this.props.currentImage === 0) return;
+		if (this.state.currentImage === 0) return;
 		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		this.props.onClickPrev();
-
+		this.setState({
+            currentImage: this.state.currentImage - 1
+        });
+	}
+	onClickImage () {
+        this.gotoNext();
+    }
+	onClickThumbnail () {
+		return (index) => {
+	        this.setState({
+	            currentImage: index
+	        });
+	    }
 	}
 	closeBackdrop (event) {
 		if (event.target.id === 'lightboxBackdrop') {
+			this.setState({
+	            currentImage: 0
+	        });
 			this.props.onClose();
 		}
 	}
@@ -136,7 +165,7 @@ class Lightbox extends Component {
 	// ==============================
 
 	renderArrowPrev () {
-		if (this.props.currentImage === 0) return null;
+		if (this.state.currentImage === 0) return null;
 
 		return (
 			<Arrow
@@ -149,7 +178,7 @@ class Lightbox extends Component {
 		);
 	}
 	renderArrowNext () {
-		if (this.props.currentImage === (this.props.images.length - 1)) return null;
+		if (this.state.currentImage === (this.props.images.length - 1)) return null;
 
 		return (
 			<Arrow
@@ -164,7 +193,6 @@ class Lightbox extends Component {
 	renderDialog () {
 		const {
 			backdropClosesModal,
-			currentImage,
 			images,
 			customControls,
 			isOpen,
@@ -173,9 +201,11 @@ class Lightbox extends Component {
 			showCloseButton,
 			showThumbnails,
 			width,
+			getCoordinates,
 		} = this.props;
 
 		if (!isOpen) return <span key="closed" />;
+		getCoordinates(images[this.state.currentImage].coordinates);
 
 		let offsetThumbnails = 0;
 		if (showThumbnails) {
@@ -190,8 +220,8 @@ class Lightbox extends Component {
 			>
 				<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
 					<Header
-						date={images[currentImage].date}
-						location={images[currentImage].location}
+						date={images[this.state.currentImage].date}
+						location={images[this.state.currentImage].location}
 						separator=' | '
 						onButtonClick={onButtonClick}
 						customControls={customControls}
@@ -210,17 +240,17 @@ class Lightbox extends Component {
 	}
 	renderImages () {
 		const {
-			currentImage,
 			images,
 			imageCountSeparator,
-			onClickImage,
 			showImageCount,
 			showThumbnails,
 		} = this.props;
 
 		if (!images || !images.length) return null;
 
-		const image = images[currentImage];
+		const image = images[this.state.currentImage];
+
+	
 
 		let srcset;
 		let sizes;
@@ -243,7 +273,7 @@ class Lightbox extends Component {
 				*/}
 				<img
 					className={css(classes.image)}
-					onClick={!!onClickImage && onClickImage}
+					onClick={this.onClickImage}
 					sizes={sizes}
 					alt={image.alt}
 					src={image.src}
@@ -254,8 +284,8 @@ class Lightbox extends Component {
 					}}
 				/>
 				<Footer
-					caption={images[currentImage].caption}
-					countCurrent={currentImage + 1}
+					caption={images[this.state.currentImage].caption}
+					countCurrent={this.state.currentImage + 1}
 					countSeparator={imageCountSeparator}
 					countTotal={images.length}
 					showCount={showImageCount}
@@ -264,16 +294,16 @@ class Lightbox extends Component {
 		);
 	}
 	renderThumbnails () {
-		const { images, currentImage, onClickThumbnail, showThumbnails, thumbnailOffset } = this.props;
+		const { images, currentImage, showThumbnails, thumbnailOffset } = this.props;
 
 		if (!showThumbnails) return;
 
 		return (
 			<PaginatedThumbnails
-				currentImage={currentImage}
+				currentImage={this.state.currentImage}
 				images={images}
 				offset={thumbnailOffset}
-				onClickThumbnail={onClickThumbnail}
+				onClickThumbnail={this.onClickThumbnail()}
 			/>
 		);
 	}
@@ -301,6 +331,11 @@ Lightbox.propTypes = {
 			location: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 			date: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 			thumbnail: PropTypes.string,
+			coordinates: 
+				PropTypes.shape({
+		            lat: PropTypes.number.isRequired,
+		            lng: PropTypes.number.isRequired
+		        }),
 		})
 	).isRequired,
 	isOpen: PropTypes.bool,

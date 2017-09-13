@@ -17,10 +17,6 @@ class Places extends Component {
       .then(res => res.json())
       .then(markers => this.setState({ markers }));
   }
-
-  componentWillUnmount() {
-    this.props.resetMapCenter();
-  }
  
   render() {
     const defaultCenter = { lat: 20, lng: 0 };
