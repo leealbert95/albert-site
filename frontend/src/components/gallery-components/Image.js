@@ -100,7 +100,7 @@ class Image extends Component {
     }
 
     render () {
-        var tags = (this.props.item.tags[0].title === '') ? <noscript/> :
+        var tags = (!this.props.item.tags) ? <noscript/> :
                 this.props.item.tags.map((tag) => {
                     return <div title={tag.title}
                     key={"tag-"+tag.value}

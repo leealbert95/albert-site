@@ -14,12 +14,13 @@ class Photos extends Component {
       displayedImages: [], // Holds current photos to display (for smoother performance) 
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 100,
+      MAX_DISPLAY: 30,
     };
     
     this.onButtonClick = this.onButtonClick.bind(this); 
     this.changePage = this.changePage.bind(this);
     this.sortGallery = this.sortGallery.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,9 @@ class Photos extends Component {
   //Called whenever there is a change to gallery (Search, sort, etc)
   //Images must be an array of images
   handleGalleryState(images, initialMount) {
+    if (initialMount) {
+      this.sortByDate(images, true);
+    }
     var imagePages = [];
     var imagePage = [];
     var counter = 0;
@@ -135,6 +139,31 @@ class Photos extends Component {
     this.handleGalleryState(images, false);
   }
 
+  search(phrase) {
+    var images = [];
+    phrase = phrase.toLowerCase();
+    if (phrase == '') {
+      this.handleGalleryState(this.state.imageBase, false);
+    } else {
+      for (var i = 0; i < this.state.imageBase.length; i++) {
+        if (this.state.imageBase[i].caption.toLowerCase().includes(phrase)
+            || this.state.imageBase[i].date.toLowerCase().includes(phrase)
+            || this.state.imageBase[i].location.toLowerCase().includes(phrase)
+            || this.searchTags(this.state.imageBase[i].tags, phrase))
+          images.push(this.state.imageBase[i]);
+      }
+      this.handleGalleryState(images, false);
+    }
+  }
+
+  searchTags(tags, phrase) {
+    for (var i = 0; i < tags.length; i++) {
+      if (tags[i].title.toLowerCase().includes(phrase))
+        return true;
+    }
+    return false;
+  }
+
   // Function to be called when user clicks location icon in lightbox
   onButtonClick(e) {
     e.preventDefault();
@@ -149,6 +178,11 @@ class Photos extends Component {
     })
   }
 
+  onSearch(e) {
+    e.preventDefault();
+    var phrase = this.refs.search.value.trim();
+    this.search(phrase);
+  }
 
   render() {
 
@@ -171,21 +205,24 @@ class Photos extends Component {
       fontSize: "90%",
     };    
 
-    var images =
-      this.state.displayedImages.map((i) => {
-        i.customOverlay = (
-          <div style={captionStyle}>
-          <div>{i.caption}</div>
-          <div style = {{height: 5}}/>
-          <div>Location: {i.location}</div>
-          <div style={{paddingTop: "10px"}}>Date: {i.date}</div>
-          </div>);
-        return i;
-      });
+    var images = [];
+
+    if (this.state.displayedImages) {
+      images =
+        this.state.displayedImages.map((i) => {
+          i.customOverlay = (
+            <div style={captionStyle}>
+            <div>{i.caption}</div>
+            <div style = {{height: 5}}/>
+            <div>Location: {i.location}</div>
+            <div style={{paddingTop: "10px"}}>Date: {i.date}</div>
+            </div>);
+          return i;
+        });
+    }
 
     //var _react = require('react');
 
-    console.log(this.state);
     
     return (
       <div style={{ backgroundColor: "rgba(255,255,255,0)", height: "100%", paddingTop: "70px" }}>
@@ -198,6 +235,11 @@ class Photos extends Component {
         <select id="pageSelect" onChange = {this.changePage} value = {this.state.currentPage} ref="selector">
           {options}
         </select>
+        <span/>
+        <form style={{ display: "inline-block", float: "right" }} onSubmit={this.onSearch}>
+          <input type="search" placeholder="Enter search" ref="search"/>
+          <input type="submit"/>
+        </form>
         <div style={{  
           display: "block",
           minHeight: "1px",
