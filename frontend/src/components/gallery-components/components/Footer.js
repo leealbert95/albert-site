@@ -64,13 +64,17 @@ const defaultStyles = {
 		paddingTop: defaults.footer.gutter.vertical,
 	},
 	footerCount: {
+		position: 'fixed',
+		top: 15,
+		right: 15,
 		color: defaults.footer.count.color,
 		fontSize: defaults.footer.count.fontSize,
 		paddingLeft: '1em', // add a small gutter for the caption
 	},
 	footerCaption: {
 		flex: '1 1 0',
-		width: '100%'
+		width: '100%',
+		textAlign: 'center',
 	},
 };
 

@@ -112,6 +112,7 @@ class Lightbox extends Component {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+		this.props.getCoordinates(this.props.images[this.state.currentImage + 1].coordinates);
 		this.setState({
             currentImage: this.state.currentImage + 1
         });
@@ -122,6 +123,7 @@ class Lightbox extends Component {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+		this.props.getCoordinates(this.props.images[this.state.currentImage - 1].coordinates);
 		this.setState({
             currentImage: this.state.currentImage - 1
         });
@@ -201,11 +203,9 @@ class Lightbox extends Component {
 			showCloseButton,
 			showThumbnails,
 			width,
-			getCoordinates,
 		} = this.props;
 
 		if (!isOpen) return <span key="closed" />;
-		getCoordinates(images[this.state.currentImage].coordinates);
 
 		let offsetThumbnails = 0;
 		if (showThumbnails) {

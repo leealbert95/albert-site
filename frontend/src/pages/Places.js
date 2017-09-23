@@ -17,14 +17,17 @@ class Places extends Component {
       .then(res => res.json())
       .then(markers => this.setState({ markers }));
   }
+
+  componentWillUnmount() {
+    this.props.resetCoordinates();
+  }
  
   render() {
     const defaultCenter = { lat: 20, lng: 0 };
-    const zoom = this.props.center ? 9 : 2;
+    const zoom = this.props.center ? 12 : 2;
     const center = this.props.center ? this.props.center : defaultCenter;
-    console.log(this.state.markers);
     return (
-      <div style={{height: 600, overflow: "hidden", paddingTop: "50px"}}>
+      <div style={{height: 650, overflow: "hidden", paddingTop: "50px"}}>
         <MyMap 
           markers={this.state.markers}
           zoom={zoom}

@@ -1,5 +1,6 @@
 .home-container {
-	height: 100%;
+	height: 660px;
+	background-color: rgba(255,255,255,0);
 	width: 100%;
 	padding-top: 40px;
 	overflow: hidden;
@@ -10,61 +11,61 @@
 }
 
 .home-container .circle-container {
-	position: relative;
-  width: 36em;
-  height: 36em;
-  padding: 0.25em;
-  /*border: dashed 1px;*/
-  border-radius: 50%;
- 	margin: 1.75em auto 0;
+	padding-top: 9em;
+  width: 50%; 
+  margin: 0 auto;
 }
 
-.home-container .center {
-	display: block;
-  position: absolute;
-  width: 18em;
-  height: 18em;
-  margin: -9em;
-  border-radius: 50%;
-}
-
-.home-container li {
-	display: block;
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 4em; height: 4em;
-  margin: -2em;
-}
-
-.home-container .circle-container .center img {
+.home-container .circle-container img {
 	display: block; 
 	margin: auto;
-	width: 100%; height: 100%;
+	width: 30%; height: 30%;
+	border-radius: 50%;
+	border: 4px solid black;
 	transform: scale(1.6, 1.6);
 	transition: all 0.25s ease-in-out;
 }
 
-.home-container .circle-container .center img:hover {
+.home-container .circle-container img:hover {
 	transform: scale(1.8, 1.8);
 }
 
-.home-container .circle-container img { 
-	display: block; 
-	margin: auto;
+.home-container .menu img { 
+	z-index: 3;
+	display: inline-block; 
 	width: 60px; 
 	height: 60px;
+	margin-top: 10px;
 	transition: all 0.25s ease-in-out;
 }
 
-.home-container .circle-container img:hover {
+.home-container .menu img:hover {
 	transform: scale(1.2, 1.2);
 }
 
-.home-container .deg0 { transform: translate(18em); } /* 12em = half the width of the wrapper */
+.home-container .menu {
+	display: flex;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 20px;
+	justify-content: space-around;
+	margin-top: 10%;
+	margin-left: 35%;
+	margin-right: 35%;
+	bottom: 0;
+	height: 80px;
+	width: 30%;
+}
+
+/*.home-container .deg0 { transform: translate(18em); } /* 12em = half the width of the wrapper 
 .home-container .deg45 { transform: rotate(45deg) translate(18em) rotate(-45deg); }
 .home-container .deg135 { transform: rotate(135deg) translate(18em) rotate(-135deg); }
-.home-container .deg180 { transform: translate(-18em); }
-.home-container .deg225 { transform: rotate(225deg) translate(18em) rotate(-225deg); }
-.home-container .deg315 { transform: rotate(315deg) translate(18em) rotate(-315deg); }
+.home-container .deg180 { 
+	transform: translate(-18em); 
+
+}
+.home-container .deg225 { 
+	transform: rotate(225deg) translate(18em) rotate(-225deg); 
+}
+/*.home-container .deg315 { transform: rotate(315deg) translate(18em) rotate(-315deg); }*/
 
 .home-container ul { list-style-type: none; }

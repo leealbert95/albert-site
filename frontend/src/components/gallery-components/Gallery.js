@@ -72,9 +72,9 @@ class Gallery extends Component {
         if (this.props.lightboxWillClose) {
             this.props.lightboxWillClose.call(this);
         }
-
+        this.props.resetCoordinates();
         //this.props.resetCoordinates;
-        console.log('closeLightbox')
+        console.log(typeof this.props.resetCoordinates);
         this.setState({
             currentImage: null,
             lightboxIsOpen: false

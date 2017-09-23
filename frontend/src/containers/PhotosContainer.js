@@ -8,7 +8,8 @@ const mapDispatchToProps = dispatch => {
 			dispatch(updateCoordinates(coordinates))
 		},
 		resetCoordinates: () => {
-			dispatch(resetCoordinates)
+			console.log('Reset called in container');
+			dispatch(resetCoordinates())
 		}
 	}
 }

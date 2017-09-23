@@ -22,6 +22,7 @@
     "react-router-transition": "^0.1.1",
     "react-scripts": "1.0.10",
     "react-scrolllock": "^1.0.8",
+    "react-simple-dropdown": "^3.2.0",
     "react-sticky-el": "^1.0.10",
     "react-transition-group": "^2.2.0",
     "redux": "^3.7.2"

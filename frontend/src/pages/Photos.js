@@ -24,7 +24,8 @@ class Photos extends Component {
   }
 
   componentDidMount() {
-    console.log('component mounted')
+    console.log(typeof this.props.resetCoordinates);
+    console.log(typeof this.props.getCoordinates);
     fetch('api/photos')
       .then(res => res.json())
       .then(images => this.handleGalleryState(images, true));
@@ -74,7 +75,7 @@ class Photos extends Component {
     if (s) {
       value = -1;  
     }
-    return images.sort(
+    images.sort(
       function(a,b) {
         var date1 = new Date(a.date);
         var date2 = new Date(b.date);
@@ -87,23 +88,15 @@ class Photos extends Component {
     );
   }
 
-  sortByLocation(images) {
-    console.log('sortByLocation called');
-    return images.sort(
-      function(a,b) {
-        if (a.location.toLowerCase() < b.location.toLowerCase())
-          return -1;
-        if (a.location.toLowerCase() > b.location.toLowerCase())
-          return 1;
-        return 0; 
-      }
-    );
-  }
-
   sortByTag(images) {
-    console.log('sortByTag called');
-    return images.sort(
+    images.sort(
       function(a,b) {
+        if (a.tags.length == 0 && b.tags.length > 0)
+          return 1
+        if (a.tags.length > 0 && b.tags.length == 0) 
+          return -1
+        if (a.tags.length == 0 && b.tags.length == 0) 
+          return 0
         if (a.tags[0].value.toLowerCase() < b.tags[0].value.toLowerCase())
           return -1;
         if (a.tags[0].value.toLowerCase() > b.tags[0].value.toLowerCase())
@@ -125,15 +118,12 @@ class Photos extends Component {
       }
     }
 
-    console.log(command);
     if (command === "date-newest") {
-      images = this.sortByDate(images, true);
+      this.sortByDate(images, true);
     } else if (command === "date-oldest") {
-      images = this.sortByDate(images, false);
-    } else if (command === "location") {
-      images = this.sortByLocation(images);
+      this.sortByDate(images, false);
     } else if (command === "tag") {
-      images = this.sortByTag(images);
+      this.sortByTag(images);
     }
 
     this.handleGalleryState(images, false);
@@ -186,12 +176,14 @@ class Photos extends Component {
 
   render() {
 
-    console.log('Photos');
-  
     var options = [];
 
+    const buttonStyle = {
+      border: "none", borderRadius: "7px", background: "linear-gradient(gray, black)", backgroundColor: "#4f4f4f", color: "white"
+    }
+
     for (var i = 1; i <= this.state.numPages; i++) {
-      options.push(<option value={i}>{i}</option>);
+      options.push(<option value={i} key={i}>{i}</option>);
     }
     
     const captionStyle = {
@@ -222,24 +214,30 @@ class Photos extends Component {
     }
 
     //var _react = require('react');
-
     
     return (
-      <div style={{ backgroundColor: "rgba(255,255,255,0)", height: "100%", paddingTop: "70px" }}>
-        <select id="mySelect" onChange = {this.sortGallery} ref="sortSelector">
-          <option value="date-newest" >Date (Newest)</option>
-          <option value="date-oldest">Date (Oldest)</option>    
-          <option value="location">Location</option>
-          <option value="tag">Tag</option>
-        </select>
-        <select id="pageSelect" onChange = {this.changePage} value = {this.state.currentPage} ref="selector">
-          {options}
-        </select>
-        <span/>
-        <form style={{ display: "inline-block", float: "right" }} onSubmit={this.onSearch}>
-          <input type="search" placeholder="Enter search" ref="search"/>
-          <input type="submit"/>
-        </form>
+      <div style={{ backgroundColor: "rgba(230,230,230,1)", height: "100%", paddingTop: "70px" }}>
+        <div style={{ width: "100%", paddingBottom: "5px", paddingTop: 5 }}>
+          <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
+            <label style={{ fontSize: 13, paddingLeft: 5 }}>Sort By: </label>
+            <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, }} ref="sortSelector">
+              <option value="date-newest" >Date (Newest)</option>
+              <option value="date-oldest">Date (Oldest)</option>    
+              <option value="tag">Tag</option>
+            </select>
+          </div>
+          <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
+            <label style={{ fontSize: 13, paddingLeft: 5 }}>Page </label>
+            <select id="pageSelect" onChange = {this.changePage} value = {this.state.currentPage} style={buttonStyle} ref="selector">
+              {options}
+            </select>
+          </div>
+          <span/>
+          <form style={{ display: "inline-block", float: "right", height: "100%", marginRight: 10 }} onSubmit={this.onSearch}>
+            <input style={{ borderRadius: "7px", }} type="search" placeholder="Enter search" ref="search"/>
+            <input style={buttonStyle} value="Search" type="submit"/>
+          </form>
+        </div>
         <div style={{  
           display: "block",
           minHeight: "1px",

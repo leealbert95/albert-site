@@ -1,5 +1,6 @@
 .Main-menu {
-  background-color: rgba(204,204,204,0.90);
+  background: linear-gradient(#363636, black);
+  background-color: black;
   height: 50px;
   padding: 10px;
   color: black;
@@ -10,29 +11,48 @@
     float: right;
     margin: auto;
     text-align: center;
-    z-index: 1000;
 }
 
 .Main-menu > div > h1 {
     display: inline-block;
     line-height: 40px;
     margin: auto;
-    margin-left: 17%;
-    top: 50%;
+    margin-bottom: 10%;
+    margin-left: 14%;
+    margin-bottom: 10%;
 }
 
+#main-logo {
+  height: 55px;
+  width: 270px;
+  padding-top: -15px;
+}
 
 .Main-menu .Social {
+    margin-left: -10px;
     padding-right: 40px;
     display: inline-block;
-    padding-top: 5px;
+    padding-top: 7px;
     float: right;
 }
 
 .Main-menu img {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   outline: none;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown__content {
+    display: none;
+    position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+    display: block;
 }
 
 .App-logo {

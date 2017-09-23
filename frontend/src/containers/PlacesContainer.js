@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import Places from '../pages/Places.js'
+import { resetCoordinates } from '../actions';
+import Places from '../pages/Places.js' 
 
 const mapStateToProps = state => {
 	return {
@@ -7,9 +8,18 @@ const mapStateToProps = state => {
 	}
 }
 
+const mapDispatchToProps = dispatch => {
+	return {
+		resetCoordinates: () => {
+			console.log('Reset called in container');
+			dispatch(resetCoordinates())
+		}
+	}
+}
+
 const PlacesContainer = connect(
 	mapStateToProps,
-	null
+	mapDispatchToProps
 )(Places);
 
 export default PlacesContainer

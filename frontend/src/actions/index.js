@@ -6,6 +6,7 @@ export const updateCoordinates = coordinates => {
 }
 
 export const resetCoordinates = () => {
+	console.log('Reset in actions');
   return {
     type: 'RESET_COORDINATES'
   }
