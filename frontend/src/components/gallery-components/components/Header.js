@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import defaults from '../theme';
 import { deepMerge } from '../utils';
 import Icon from './Icon';
-import LocationMarker from './facebook-placeholder-for-locate-places-on-maps.svg';
+import LocationMarker from '../../../img/iconmonstr-location-1.svg';
 
 function Header ({
 	date,

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Circle from '../img/if_icon-ios7-circle-outline_211717.png';
 import ProfilePic from '../img/profile_v2.jpg';
-import GalleryIcon from '../img/camera-retro.svg'
-import PlacesIcon from '../img/earth-globe.svg'
+import GalleryIcon from '../img/iconmonstr-picture-1.svg';
+import PlacesIcon from '../img/iconmonstr-globe-5.svg';
 import '../stylesheets/Home.css';
 
 class Home extends Component {
@@ -14,7 +13,7 @@ class Home extends Component {
   				<Link to='/about' title="About Me"><img src={ProfilePic}/></Link> 
   			</div>
         <div className="menu">       
-          <Link to='/photos' title="Photos"><img src={GalleryIcon}/></Link>
+          <Link to='/photos' title="Gallery"><img src={GalleryIcon}/></Link>
           <Link to='/places' title="Places"><img src={PlacesIcon}/></Link>
         </div>
     	</div>
