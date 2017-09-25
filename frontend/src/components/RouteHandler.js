@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { RouteTransition } from 'react-router-transition';
-
+import { TransitionGroup, CSSTransition } from 'react-transition-group' ;
 import Test from '../pages/Test.js';
 import Home from '../pages/Home.js';
 import About from '../pages/About.js';
 import PhotosContainer from '../containers/PhotosContainer.js';
 import PlacesContainer from '../containers/PlacesContainer.js';
 import Uploads from '../pages/Uploads.js';
+import '../stylesheets/Transition.css';
 
 class RouteHandler extends Component {
 
@@ -16,30 +16,24 @@ class RouteHandler extends Component {
   }
 	
   render() {
-    console.log('RouteHandler');
     return (
-      <Route render={({location, history, match}) => {
-        return (
-    	    <RouteTransition
-            styles={{ position: 'absolute' }}
-            pathname={location.pathname}
-            atEnter={{ translateX: 100 }}
-            atLeave={{ translateX: 0 }}
-            atActive={{ translateX: 0 }}
-            mapStyles={styles => ({ transform: `translateX(${styles.translateX}%)` })}
-            runOnMount={false}
-          >
-            <Switch key={location.key} location={location}>
-              <Route exact path='/' component={Home}/>
-              <Route path='/test' component={Test}/> 
-              <Route path='/about' component={About}/>
-              <Route path='/photos' component={PhotosContainer}/>
-              <Route path='/places' component={PlacesContainer}/>
-              <Route path='/uploads' component={Uploads}/>
-            </Switch>
-          </RouteTransition>
-        );
-      }}/>  
+      <TransitionGroup>
+        <CSSTransition 
+          key={this.props.location.key}
+          classNames='fade'
+          timeout={500}
+          unmountOnExit={true}
+        >
+          <Switch location={this.props.location}>
+            <Route exact path='/' component={Home}/>
+            <Route path='/test' component={Test}/>
+            <Route path='/about' component={About}/>
+            <Route path='/gallery' component={PhotosContainer}/>
+            <Route path='/places' component={PlacesContainer}/>
+            <Route path='/uploads' component={Uploads}/>
+          </Switch>
+        </CSSTransition> 
+      </TransitionGroup>
     );
   }
 }

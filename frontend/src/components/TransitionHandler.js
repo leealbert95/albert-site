@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import '../stylesheets/Transition.css';
+import PageTransition from 'react-transition-group';
 
-class TransitionHandler extends Component {
-  render() {
+export default (props) => (
+  <div style={{ backgroundColor: "rgba(255,255,255,0)", height: "660px"}}>
+    {props.children}
+  </div>
+);
 
-    return (
-      <CSSTransition 
-      	timeout={5000}  	
-      	classNames="fade">
-      	{this.props.children}
-      </CSSTransition>
-    );
-  }
-}
-
-export default TransitionHandler;
-   

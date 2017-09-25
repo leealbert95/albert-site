@@ -13,7 +13,7 @@ class Home extends Component {
   				<Link to='/about' title="About Me"><img src={ProfilePic}/></Link> 
   			</div>
         <div className="menu">       
-          <Link to='/photos' title="Gallery"><img src={GalleryIcon}/></Link>
+          <Link to='/gallery' title="Gallery"><img src={GalleryIcon}/></Link>
           <Link to='/places' title="Places"><img src={PlacesIcon}/></Link>
         </div>
     	</div>

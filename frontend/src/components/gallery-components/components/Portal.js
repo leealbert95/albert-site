@@ -18,6 +18,7 @@ export default class Portal extends Component {
 	}
 	componentDidUpdate () {
 		// Animate fade on mount/unmount
+		console.log("Portal")
 		const duration = 200;
 		const styles = `
 				.fade-enter { opacity: 0.01; }

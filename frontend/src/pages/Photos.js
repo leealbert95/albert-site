@@ -216,8 +216,8 @@ class Photos extends Component {
     //var _react = require('react');
     
     return (
-      <div style={{ backgroundColor: "rgba(230,230,230,1)", height: "100%", paddingTop: "70px" }}>
-        <div style={{ width: "100%", paddingBottom: "5px", paddingTop: 5 }}>
+      <div style={{ paddingTop: "70px", height: "700px", backgroundColor: "white", overflow: "visible" }}>
+        <div style={{ width: "100%", paddingBottom: "0px", paddingTop: 5, paddingBottom: 5}}>
           <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
             <label style={{ fontSize: 13, paddingLeft: 5 }}>Sort By: </label>
             <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, }} ref="sortSelector">
@@ -233,7 +233,7 @@ class Photos extends Component {
             </select>
           </div>
           <span/>
-          <form style={{ display: "inline-block", float: "right", height: "100%", marginRight: 10 }} onSubmit={this.onSearch}>
+          <form style={{ display: "inline-block", float: "right", height: "100%", marginRight: 10, }} onSubmit={this.onSearch}>
             <input style={{ borderRadius: "7px", }} type="search" placeholder="Enter search" ref="search"/>
             <input style={buttonStyle} value="Search" type="submit"/>
           </form>

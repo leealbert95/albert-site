@@ -309,9 +309,9 @@ class Lightbox extends Component {
 	}
 	render () {
 		return (
-			<Portal>
+			<div>
 				{this.renderDialog()}
-			</Portal>
+			</div>
 		);
 	}
 }

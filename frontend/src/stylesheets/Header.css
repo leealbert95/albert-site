@@ -15,7 +15,7 @@
     display: inline-block;
     line-height: 40px;
     margin: auto;
-    margin-left: 10%;
+    margin-left: 7%;
     margin-bottom: 10%;
 }
 
@@ -61,8 +61,7 @@ li > a {
 #menu-icon {
   height: 40px;
   width: 40px;
-  margin: 15px;
-  margin-left: 
+  margin: 15px; 
 }
 
 #about {

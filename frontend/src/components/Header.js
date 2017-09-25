@@ -18,6 +18,16 @@ class Header extends Component {
       menuState: { marginLeft: "-80px" }
     }
     this.onMenuClick = this.onMenuClick.bind(this);
+    this.setWrapperRef = this.setWrapperRef.bind(this);           
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   onMenuClick() {
@@ -31,17 +41,29 @@ class Header extends Component {
     })
   }
 
+handleClickOutside(event) {
+  if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+    this.setState({
+      menuState: { marginLeft: "-80px" }
+    })
+  }
+}
+
+ setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
   render() {
     const menuClass = "dropdown " + this.state.menuState;
     return (
       <div className="Main-menu">
         <div style={{ height: 0 }}>
-          <div className="dropdown" onClick = {this.onMenuClick}>
+          <div className="dropdown" onClick = {this.onMenuClick} ref={this.setWrapperRef}>
             <img id="menu-icon" src={MenuIcon}/>
             <div className="dropdown__content" style={this.state.menuState}>
               <ul>
                 <li><Link to='/about' title="About"><div style={{ height: '60px' }}><img id="about" src={ProfilePicture}/></div></Link></li>
-                <li><Link to='/photos' title="Gallery"><div style={{ height: '60px' }}><img id="menu-item" src={GalleryIcon}/></div></Link></li>
+                <li><Link to='/gallery' title="Gallery"><div style={{ height: '60px' }}><img id="menu-item" src={GalleryIcon}/></div></Link></li>
                 <li><Link to='/places' title="Places"><div style={{ height: '60px' }}><img id="menu-item" src={PlacesIcon}/></div></Link></li>
               </ul>
             </div>
