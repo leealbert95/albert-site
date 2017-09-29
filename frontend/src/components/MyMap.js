@@ -4,10 +4,11 @@ import _ from 'lodash';
 import Special from '../img/special.svg';
 
 
-const SimpleMapExampleGoogleMap = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={props.zoom}
-    defaultCenter={props.center}
+const SimpleMapExampleGoogleMap = withGoogleMap(props => {
+  console.log(props.center);
+  return <GoogleMap
+    zoom={props.zoom}
+    center={props.center}
   >
   	{props.markers.map(marker => {
       const icon = JSON.stringify(marker.position) == JSON.stringify(props.center) ? Special : '';
@@ -19,7 +20,7 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   		/>
   	})} 
   </GoogleMap>
-));
+});
 
 
 export default class MyMap extends Component {
@@ -34,6 +35,7 @@ export default class MyMap extends Component {
 	}
 
   render() {
+    console.log(this.props.center);
     return (
       <SimpleMapExampleGoogleMap
         containerElement={

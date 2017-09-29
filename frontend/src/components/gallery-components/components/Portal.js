@@ -15,28 +15,25 @@ export default class Portal extends Component {
 		document.body.appendChild(p);
 		this.portalElement = p;
 		this.componentDidUpdate();
+		console.log('Portal Mount')
 	}
 	componentDidUpdate () {
 		// Animate fade on mount/unmount
-		console.log("Portal")
-		const duration = 200;
+		console.log("Portal");
+
 		const styles = `
 				.fade-enter { opacity: 0.01; }
-				.fade-enter.fade-enter-active { opacity: 1; transition: opacity ${duration}ms; }
-				.fade-exit { opacity: 1; }
-				.fade-exit.fade-exit-active { opacity: 0.01; transition: opacity ${duration}ms; }
+				.fade-enter.fade-enter-active { opacity: 1; transition: opacity 200ms; }
+				.fade-exit { opacity: 1; ; transition: opacity 200ms; }
+				.fade-exit.fade-exit-active { opacity: 0.01; transition: opacity 200ms; }
 		`;
-
+	
 		render(
 			<PassContext context={this.context}>
-				<div>
+				<div style={{ position: "fixed", top: 0, left: 0, height: "100%", zIndex: 1 }}>
 					<style>{styles}</style>
 					<TransitionGroup>
-						<CSSTransition
-							classNames="fade"
-							timeout={duration}
-							{...this.props}
-						/>
+						<CSSTransition key={this.props.isOpen} classNames="fade" timeout={200} {...this.props}/>
 					</TransitionGroup>
 				</div>
 			</PassContext>,

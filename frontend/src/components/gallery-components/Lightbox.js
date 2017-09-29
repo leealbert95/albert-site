@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollLock from 'react-scrolllock';
-
 import defaultTheme from './theme';
 import Arrow from './components/Arrow';
 import Container from './components/Container';
@@ -140,12 +140,16 @@ class Lightbox extends Component {
 	}
 	closeBackdrop (event) {
 		if (event.target.id === 'lightboxBackdrop') {
-			this.setState({
-	            currentImage: 0
-	        });
 			this.props.onClose();
 		}
 	}
+
+	onClose () {
+		this.setState({
+			closing: true,
+		})
+	}
+
 	handleKeyboardInput (event) {
 		if (event.keyCode === 37) { // left
 			this.gotoPrev(event);
@@ -205,37 +209,49 @@ class Lightbox extends Component {
 			width,
 		} = this.props;
 
-		if (!isOpen) return <span key="closed" />;
+		console.log(images.length);
+
+		if (!isOpen) return <span key="closed"/>;
 
 		let offsetThumbnails = 0;
 		if (showThumbnails) {
 			offsetThumbnails = this.theme.thumbnail.size + this.theme.container.gutter.vertical;
 		}
 
+		const duration = 200;
+		const styles = `
+				.fade-enter { opacity: 0.01;  }
+				.fade-enter.fade-enter-active { opacity: 1; transition: opacity 200ms; }
+				.fade-exit { opacity: 1; ; transition: opacity 200ms; }
+				.fade-exit.fade-exit-active { opacity: 0.01; transition: opacity 200ms; }
+		`;
+
 		return (
-			<Container
-				key="open"
-				onClick={!!backdropClosesModal && this.closeBackdrop}
-				onTouchEnd={!!backdropClosesModal && this.closeBackdrop}
-			>
-				<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-					<Header
-						date={images[this.state.currentImage].date}
-						location={images[this.state.currentImage].location}
-						separator=' | '
-						onButtonClick={onButtonClick}
-						customControls={customControls}
-						onClose={onClose}
-						showCloseButton={showCloseButton}
-						closeButtonTitle={this.props.closeButtonTitle}
-					/>
-					{this.renderImages()}
-				</div>
-				{this.renderThumbnails()}
-				{this.renderArrowPrev()}
-				{this.renderArrowNext()}
-				<ScrollLock />
-			</Container>
+			<div>
+				<Container
+					key="open"
+					onClick={!!backdropClosesModal && this.closeBackdrop}
+					onTouchEnd={!!backdropClosesModal && this.closeBackdrop}
+				>	
+					<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+						<Header
+							date={images[this.state.currentImage].date}
+							location={images[this.state.currentImage].location}
+							separator=' | '
+							onButtonClick={onButtonClick}
+							customControls={customControls}
+							onClose={onClose}
+							showCloseButton={showCloseButton}
+							closeButtonTitle={this.props.closeButtonTitle}
+						/>
+						{this.renderImages()}
+					</div>
+					{this.renderThumbnails()}
+					{this.renderArrowPrev()}
+					{this.renderArrowNext()}
+					<ScrollLock />
+				</Container>
+			</div>
 		);
 	}
 	renderImages () {
@@ -308,9 +324,19 @@ class Lightbox extends Component {
 		);
 	}
 	render () {
+
+		const styles = `
+				.fade-enter { opacity: 0.01;   }
+				.fade-enter.fade-enter-active { opacity: 1; transition: all 500ms ease;}
+				.fade-exit { opacity: 1; ; transition: opacity 200ms; }
+				.fade-exit.fade-exit-active { opacity: 0.01; transition: opacity 200ms; }
+		`;
+
 		return (
 			<div>
-				{this.renderDialog()}
+				<Portal isOpen={this.props.isOpen}>
+					{this.renderDialog()}
+				</Portal>
 			</div>
 		);
 	}

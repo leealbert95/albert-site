@@ -8,12 +8,21 @@ class About extends Component {
     return (
       <div className = "about-container">
         <div className = "content">
-          <h1>About</h1>
+          <h1>About Me</h1>
           <p>
             Hello there! I'm Albert, recent college graduate and aspiring web developer. This is my portfolio site that I have created
-            both for fun and to practice web development fundamentals. Feel free to look around as you wish! This website was made using
-            React JS. 
+            both for fun and to practice frontend and backend engineering. I will continue to add more projects to my portfolio as I 
+            think up some more ideas. Feel free to look around as you wish! This website was made with React and uses an Express backend to fetch 
+            the data for the Gallery and Places pages. 
           </p>
+          <div>
+            <h3>Alma Mater</h3>
+            <p>Vanderbilt University: B.S. Computer Science with Mathematics minor (May 2017)</p>
+            <h3>Bio</h3>
+            <p>Birthday: July 10, 1995</p>
+            <p>Birthplace: San Jose, CA</p>
+            <p>Current Residence: Irvine, CA</p>
+          </div>
         </div>
       </div>
     );

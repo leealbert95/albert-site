@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import Lightbox from './Lightbox.js';
 import Image from './Image.js';
 
+
 class Gallery extends Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            images: this.props.images,
+            images: [],
             thumbnails: [],
             lightboxIsOpen: this.props.isOpen,
             currentImage: this.props.currentImage,
@@ -74,11 +75,12 @@ class Gallery extends Component {
         }
         this.props.resetCoordinates();
         //this.props.resetCoordinates;
-        console.log(typeof this.props.resetCoordinates);
+        console.log('closeLightbox');
         this.setState({
-            currentImage: null,
+            currentImage: 0,
             lightboxIsOpen: false
         });
+        console.log('closing');
     }
 
 
@@ -188,7 +190,13 @@ class Gallery extends Component {
     }
 
     render () {
-        
+        const styles = `
+          .fade-enter { opacity: 0.01; }
+          .fade-enter.fade-enter-active { opacity: 1; transition: opacity 200ms; }
+          .fade-exit { opacity: 0.01; transition: opacity 200ms; }
+          .fade-exit.fade-exit-active { opacity: 0.01; transition: opacity 200ms; }
+        `;
+
         var images = this.state.thumbnails.map((item, idx) => {
             return <Image
             key={"Image-"+idx+"-"+item.src}
@@ -205,27 +213,26 @@ class Gallery extends Component {
                 />;});
 
         return (
-                <div id={this.props.id} className="ReactGridGallery" ref={(c) => this._gallery = c}>
+              <div id={this.props.id} className="ReactGridGallery" ref={(c) => this._gallery = c}>
                 {images}
                 <Lightbox 
-            style={{backgroundColor: "rgba(255,255,255,0)"}}
-            images={this.props.images}
-            backdropClosesModal={this.props.backdropClosesModal}
-            currentImage={this.state.currentImage}
-            onButtonClick={this.props.onButtonClick}
-            customControls={this.props.customControls}
-            enableKeyboardInput={this.props.enableKeyboardInput}
-            imageCountSeparator={this.props.imageCountSeparator}
-            isOpen={this.state.lightboxIsOpen}
-            showCloseButton={this.props.showCloseButton}
-            showImageCount={this.props.showImageCount}
-            onClose={this.closeLightbox}
-            width={this.props.lightboxWidth}
-            theme={this.props.theme}
-            showThumbnails={this.props.showLightboxThumbnails}
-            getCoordinates={this.props.getCoordinates}
+                  images={this.state.images}
+                  backdropClosesModal={this.props.backdropClosesModal}
+                  currentImage={this.state.currentImage}
+                  onButtonClick={this.props.onButtonClick}
+                  customControls={this.props.customControls}
+                  enableKeyboardInput={this.props.enableKeyboardInput}
+                  imageCountSeparator={this.props.imageCountSeparator}
+                  isOpen={this.state.lightboxIsOpen}
+                  showCloseButton={this.props.showCloseButton}
+                  showImageCount={this.props.showImageCount}
+                  onClose={this.closeLightbox}
+                  width={this.props.lightboxWidth}
+                  theme={this.props.theme}
+                  showThumbnails={this.props.showLightboxThumbnails}
+                  getCoordinates={this.props.getCoordinates}
                 />
-                </div>
+              </div>
         );
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group' ;
 import Test from '../pages/Test.js';
+import Resume from '../pages/Resume.js'
 import Home from '../pages/Home.js';
 import About from '../pages/About.js';
 import PhotosContainer from '../containers/PhotosContainer.js';
@@ -16,13 +17,17 @@ class RouteHandler extends Component {
   }
 	
   render() {
+    console.log(this.props.location.key);
     return (
+      <div style={{ zIndex: -1 }}>
       <TransitionGroup>
         <CSSTransition 
           key={this.props.location.key}
-          classNames='fade'
+          classNames='page'
           timeout={500}
+          mountOnEnter={true}
           unmountOnExit={true}
+          exit={false}
         >
           <Switch location={this.props.location}>
             <Route exact path='/' component={Home}/>
@@ -31,9 +36,11 @@ class RouteHandler extends Component {
             <Route path='/gallery' component={PhotosContainer}/>
             <Route path='/places' component={PlacesContainer}/>
             <Route path='/uploads' component={Uploads}/>
+            <Route path='/resume' component={Resume}/>
           </Switch>
         </CSSTransition> 
       </TransitionGroup>
+      </div>
     );
   }
 }

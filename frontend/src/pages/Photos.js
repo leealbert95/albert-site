@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Gallery from '../components/gallery-components/Gallery.js';
 import PropTypes from 'prop-types';
+import '../stylesheets/Photos.css';
 
 class Photos extends Component {
  
@@ -12,6 +13,7 @@ class Photos extends Component {
       imageBase: [], // Holds all photos returned by initial GET request, to eliminate the need for more GET requests 
       images: [], // Holds current state's photos, contents may change depending on user's search and sort options
       displayedImages: [], // Holds current photos to display (for smoother performance) 
+      loadedImages: [],
       currentPage: 1,
       numPages: '',
       MAX_DISPLAY: 30,
@@ -57,14 +59,16 @@ class Photos extends Component {
         imageBase: images, 
         displayedImages: imagePages[0], 
         currentPage: 1,
-        numPages: imagePages.length
+        numPages: imagePages.length,
+        loadedImages: [],
       });
     } else {
       this.setState({ 
         images: imagePages, 
         displayedImages: imagePages[0], 
         currentPage: 1,
-        numPages: imagePages.length
+        numPages: imagePages.length,
+        loadedImages: [],
       });
     }
   }
@@ -164,6 +168,7 @@ class Photos extends Component {
     var page = this.refs.selector.value;
     this.setState({
       displayedImages: this.state.images[page - 1],
+      loadedImages: [],
       currentPage: page,
     })
   }
@@ -174,12 +179,19 @@ class Photos extends Component {
     this.search(phrase);
   }
 
-  render() {
+  // Image will be rendered once loading is complete
+  onLoad(item) {
+    this.setState(({ loadedImages }) => {
+      return { loadedImages: loadedImages.concat(item) }
+    })
+  }
 
+  render() {
+    console.log('Gallery Render');
     var options = [];
 
     const buttonStyle = {
-      border: "none", borderRadius: "7px", background: "linear-gradient(gray, black)", backgroundColor: "#4f4f4f", color: "white"
+      border: "none", borderRadius: "7px", background: "linear-gradient(gray, black)", backgroundColor: "#4f4f4f", color: "white", cursor: "pointer"
     }
 
     for (var i = 1; i <= this.state.numPages; i++) {
@@ -199,9 +211,9 @@ class Photos extends Component {
 
     var images = [];
 
-    if (this.state.displayedImages) {
+    if (this.state.loadedImages) {
       images =
-        this.state.displayedImages.map((i) => {
+        this.state.loadedImages.map((i) => {
           i.customOverlay = (
             <div style={captionStyle}>
             <div>{i.caption}</div>
@@ -214,26 +226,26 @@ class Photos extends Component {
     }
 
     //var _react = require('react');
-    
+
     return (
-      <div style={{ paddingTop: "70px", height: "700px", backgroundColor: "white", overflow: "visible" }}>
-        <div style={{ width: "100%", paddingBottom: "0px", paddingTop: 5, paddingBottom: 5}}>
+      <div className="photos-container">
+        <div className="gallery-options">
           <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
-            <label style={{ fontSize: 13, paddingLeft: 5 }}>Sort By: </label>
+            <label>Sort By: </label>
             <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, }} ref="sortSelector">
-              <option value="date-newest" >Date (Newest)</option>
+              <option style = {{  }} value="date-newest" >Date (Newest)</option>
               <option value="date-oldest">Date (Oldest)</option>    
               <option value="tag">Tag</option>
             </select>
           </div>
           <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
-            <label style={{ fontSize: 13, paddingLeft: 5 }}>Page </label>
+            <label>Page </label>
             <select id="pageSelect" onChange = {this.changePage} value = {this.state.currentPage} style={buttonStyle} ref="selector">
               {options}
             </select>
           </div>
           <span/>
-          <form style={{ display: "inline-block", float: "right", height: "100%", marginRight: 10, }} onSubmit={this.onSearch}>
+          <form onSubmit={this.onSearch}>
             <input style={{ borderRadius: "7px", }} type="search" placeholder="Enter search" ref="search"/>
             <input style={buttonStyle} value="Search" type="submit"/>
           </form>
@@ -243,6 +255,7 @@ class Photos extends Component {
           minHeight: "1px",
           width: "100%",
           border: "1px solid #ddd",
+          backgroundColor: "rgba(0,0,0,1)",
           overflow: "auto"}}>
           <Gallery 
             images={images}
@@ -254,6 +267,12 @@ class Photos extends Component {
             onButtonClick={this.onButtonClick}
             showLightboxThumbnails={false}
           />
+        </div>
+        <div style={{ display: "none" }}>
+          //Let images load in background first so that they can be rendered when fully loaded
+          {this.state.displayedImages.map((item, i) =>
+            <img src={item.src} onLoad={this.onLoad.bind(this, item)} key={i} />
+          )}
         </div>
       </div>
     );

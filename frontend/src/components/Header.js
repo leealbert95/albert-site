@@ -7,6 +7,8 @@ import MenuIcon from '../img/iconmonstr-menu-1.svg';
 import GalleryIcon from '../img/iconmonstr-picture-1.svg';
 import PlacesIcon from '../img/iconmonstr-globe-5.svg';
 import ProfilePicture from '../img/profile_v2.jpg';
+import BlogIcon from '../img/iconmonstr-book-18.svg';
+import ResumeIcon from'../img/iconmonstr-note-38.svg';
 import { Link } from 'react-router-dom';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import '../stylesheets/Header.css';
@@ -15,7 +17,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuState: { marginLeft: "-80px" }
+      menuState: { marginLeft: "-80px" },
     }
     this.onMenuClick = this.onMenuClick.bind(this);
     this.setWrapperRef = this.setWrapperRef.bind(this);           
@@ -37,36 +39,50 @@ class Header extends Component {
     else
       newMenuState = { marginLeft: "-80px" };
     this.setState({
-      menuState: newMenuState
+      menuState: newMenuState,
     })
   }
 
-handleClickOutside(event) {
-  if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-    this.setState({
-      menuState: { marginLeft: "-80px" }
-    })
+  //close menu in event of outside click
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({ 
+        menuState: { marginLeft: "-80px" }
+      })
+    }
   }
-}
 
- setWrapperRef(node) {
+  setWrapperRef(node) {
     this.wrapperRef = node;
   }
 
+
   render() {
-    const menuClass = "dropdown " + this.state.menuState;
+    const activeStyle = {
+      background: "linear-gradient(gray, white)"
+    }
     return (
       <div className="Main-menu">
         <div style={{ height: 0 }}>
-          <div className="dropdown" onClick = {this.onMenuClick} ref={this.setWrapperRef}>
+          <div className="dropdown" onClick={this.onMenuClick} ref={this.setWrapperRef}>
             <img id="menu-icon" src={MenuIcon}/>
-            <div className="dropdown__content" style={this.state.menuState}>
+            <nav className="dropdown__content" style={this.state.menuState}>
               <ul>
-                <li><Link to='/about' title="About"><div style={{ height: '60px' }}><img id="about" src={ProfilePicture}/></div></Link></li>
-                <li><Link to='/gallery' title="Gallery"><div style={{ height: '60px' }}><img id="menu-item" src={GalleryIcon}/></div></Link></li>
-                <li><Link to='/places' title="Places"><div style={{ height: '60px' }}><img id="menu-item" src={PlacesIcon}/></div></Link></li>
+                <li style={this.props.location.pathname == '/about' ? activeStyle : {} }>
+                  <Link to='/about' title="About"><div><img id="about" src={ProfilePicture}/>About</div></Link>
+                </li>
+                <li style={this.props.location.pathname == '/gallery' ? activeStyle : {} }>
+                  <Link to='/gallery' title="Gallery"><div><img id="menu-item" src={GalleryIcon}/>Gallery</div></Link>
+                </li>
+                <li style={this.props.location.pathname == '/places' ? activeStyle : {} }>
+                  <Link to='/places' title="Places"><div><img id="menu-item" src={PlacesIcon}/>Places</div></Link>
+                </li>
+                <li style={this.props.location.pathname == '/resume' ? activeStyle : {} }>
+                  <Link to='/resume' title="Resume"><div><img id="menu-item" src={ResumeIcon}/>Resume</div></Link>
+                </li>
               </ul>
-            </div>
+              <div className="sidebar-filler"/>
+            </nav>
           </div>
           <h1><Link to="/"><img id="main-logo" src={MainLogo}/></Link></h1>
           <div className="Social">

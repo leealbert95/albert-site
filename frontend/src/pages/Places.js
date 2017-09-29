@@ -19,13 +19,23 @@ class Places extends Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount');
     this.props.resetCoordinates();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(JSON.stringify(this.props.center) !== JSON.stringify(nextProps.center)) {
+      this.setState({
+
+      })
+    }
   }
  
   render() {
     const defaultCenter = { lat: 20, lng: 0 };
     const zoom = this.props.center ? 12 : 2;
     const center = this.props.center ? this.props.center : defaultCenter;
+    console.log(center);
     return (
       <div style={{height: 650, overflow: "hidden", paddingTop: "50px"}}>
         <MyMap 

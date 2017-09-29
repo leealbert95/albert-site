@@ -8,9 +8,10 @@
 }
 
 .about-container .content {
-	margin: 10px;
+	margin: 30px;
 }
 
 .about-container p {
 	text-indent: 20px;
+	text-align: justify;
 }

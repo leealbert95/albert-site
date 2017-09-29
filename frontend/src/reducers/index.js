@@ -10,7 +10,7 @@ const reduxApp = (state = {}, action) => {
       console.log('Resetting');
       return {
         ...state,
-        coordinates: ''
+        coordinates: null
       }
     default:
       return state
