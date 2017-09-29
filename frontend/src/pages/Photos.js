@@ -181,6 +181,7 @@ class Photos extends Component {
 
   // Image will be rendered once loading is complete
   onLoad(item) {
+    this.console.log('Image Load');
     this.setState(({ loadedImages }) => {
       return { loadedImages: loadedImages.concat(item) }
     })
