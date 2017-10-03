@@ -34,11 +34,12 @@
     "eslint": "^4.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://cryptic-mesa-21410.herokuapp.com",
   "devDependencies": {
     "eslint": "^4.7.2"
   }
