@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import '../stylesheets/Test.css';
 
-class Test extends Component {
+class Resume extends Component {
   render() {
     return (
       <div style={{ height: "630px", paddingTop: "70px", width: "100%" }}>
@@ -16,4 +14,4 @@ class Test extends Component {
   }
 }
 
-export default Test;
+export default Resume;

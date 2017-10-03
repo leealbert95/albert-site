@@ -1,0 +1,17 @@
+.about-container {
+	padding-top: 70px;
+	height: 630px;
+	margin-left: 25%;
+	margin-right: 25%;
+	width: 50%;
+	background-color: white;
+}
+
+.about-container .content {
+	margin: 30px;
+}
+
+.about-container p {
+	text-indent: 20px;
+	text-align: justify;
+}

@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Circle from '../img/if_icon-ios7-circle-outline_211717.png';
+import ProfilePic from '../img/profile_v2.jpg';
+import GalleryIcon from '../img/iconmonstr-picture-1.svg';
+import PlacesIcon from '../img/iconmonstr-globe-5.svg';
+import ResumeIcon from'../img/iconmonstr-note-38.svg';
 import '../stylesheets/Home.css';
 
 class Home extends Component {
   render() {
     return (
     	<div className="home-container">
-    		<nav>
-    			<ul className="circle-container">
-    				<li className="center"><Link to='/about'><img src={Circle}/></Link></li>    				
-    				<li className="deg0"><Link to='/test'><img src={Circle}/></Link></li>
-    				<li className="deg45"><Link to='/test'><img src={Circle}/></Link></li>
-    				<li className="deg135"><Link to='/test'><img src={Circle}/></Link></li>
-    				<li className="deg180"><Link to='/test'><img src={Circle}/></Link></li>
-    				<li className="deg225"><Link to='/test'><img src={Circle}/></Link></li>
-    				<li className="deg315"><Link to='/test'><img src={Circle}/></Link></li>
-    			</ul>
-    		</nav>
-    		<div>
-    			<h1>Welcome !</h1>
-    			<p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-          <p>This is my site</p>
-    		</div>
+  			<div className="circle-container">
+  				<Link to='/about' title="About Me" style={{ zIndex: -1 }}><img src={ProfilePic}/></Link> 
+  			</div>
+        <div className="menu">       
+          <Link to='/gallery' title="Gallery"><img src={GalleryIcon}/></Link>
+          <Link to='/places' title="Places"><img src={PlacesIcon}/></Link>
+          <Link to='/resume' title="Resume"><img src={ResumeIcon}/></Link>
+        </div>
     	</div>
     );
   }

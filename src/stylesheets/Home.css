@@ -1,65 +1,79 @@
+.home-container {
+	height: 660px;
+	background-color: rgba(255,255,255,0);
+	width: 100%;
+	padding-top: 40px;
+	overflow: hidden;
+	z-index: 0;
+}
+
 .home-container h1 {
 	color: red;
 }
 
-.circle-container {
+.home-container .circle-container {
+  padding-top: 9em;
+  width: 25%; 
+  margin: 0 auto;
+  z-index: 0;
+}
+
+.home-container a {
+	z-index: ;
+}
+
+.home-container .circle-container img {
 	position: relative;
-  width: 36em;
-  height: 36em;
-  padding: 1em;
-  /*border: dashed 1px;*/
-  border-radius: 50%;
- 	margin: 1.75em auto 0;
-}
-
-.home-container .center {
-	display: block;
-  position: absolute;
-  width: 18em;
-  height: 18em;
-  margin: -9em;
-  border-radius: 50%;
-  border: 1px solid red;
-  background-color: blue;
-}
-
-.home-container li {
-	display: block;
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 4em; height: 4em;
-  margin: -2em;
-}
-
-.circle-container .center img {
 	display: block; 
 	margin: auto;
-	width: 100%; height: 100%;
+	width: 60%; height: 60%;
+	border-radius: 50%;
+	border: 4px solid black;
 	transform: scale(1.6, 1.6);
-	transition: all 0.5s ease-in-out;
+	transition: all 0.25s ease-in-out;
+	z-index: 0;
 }
 
-.circle-container .center img:hover {
+.home-container .circle-container img:hover {
 	transform: scale(1.8, 1.8);
 }
 
-.circle-container img { 
-	display: block; 
-	margin: auto;
+.home-container .menu img { 
+	display: inline-block; 
 	width: 60px; 
 	height: 60px;
-	transition: all 0.5s ease-in-out;
+	margin-top: 10px;
+	transition: all 0.25s ease-in-out;
 }
 
-.circle-container img:hover {
+.home-container .menu img:hover {
 	transform: scale(1.2, 1.2);
 }
 
-.deg0 { transform: translate(18em); } /* 12em = half the width of the wrapper */
-.deg45 { transform: rotate(45deg) translate(18em) rotate(-45deg); }
-.deg135 { transform: rotate(135deg) translate(18em) rotate(-135deg); }
-.deg180 { transform: translate(-18em); }
-.deg225 { transform: rotate(225deg) translate(18em) rotate(-225deg); }
-.deg315 { transform: rotate(315deg) translate(18em) rotate(-315deg); }
+.home-container .menu {
+	display: flex;
+	background: rgba(255, 255, 255, 0.5);
+	border: 4px solid;
+	border-radius: 20px;
+	justify-content: space-around;
+	margin-top: 10%;
+	margin-left: 35%;
+	margin-right: 35%;
+	bottom: 0;
+	height: 80px;
+	width: 30%;
+}
 
-ul { list-style-type: none; }
+/*.home-container .deg0 { transform: translate(18em); } /* 12em = half the width of the wrapper 
+.home-container .deg45 { transform: rotate(45deg) translate(18em) rotate(-45deg); }
+.home-container .deg135 { transform: rotate(135deg) translate(18em) rotate(-135deg); }
+.home-container .deg180 { 
+	transform: translate(-18em); 
+
+}
+.home-container .deg225 { 
+	transform: rotate(225deg) translate(18em) rotate(-225deg); 
+}
+/*.home-container .deg315 { transform: rotate(315deg) translate(18em) rotate(-315deg); }*/
+
+.home-container ul { list-style-type: none; }
