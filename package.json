@@ -38,7 +38,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://cryptic-mesa-21410.herokuapp.com",
   "devDependencies": {
     "eslint": "^4.7.2"
   }
