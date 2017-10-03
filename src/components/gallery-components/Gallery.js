@@ -173,6 +173,7 @@ class Gallery extends Component {
             rows.push(this.buildImageRow(items, containerWidth));
         }
 
+        console.log(rows.length);
         for(var r in rows) {
             for(var i in rows[r]) {
                 var item = rows[r][i];

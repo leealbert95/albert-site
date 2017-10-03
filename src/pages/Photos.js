@@ -16,7 +16,7 @@ class Photos extends Component {
       loadedImages: [],
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 30,
+      MAX_DISPLAY: 20,
     };
     
     this.onButtonClick = this.onButtonClick.bind(this); 
@@ -30,12 +30,12 @@ class Photos extends Component {
     console.log(typeof this.props.getCoordinates);
     fetch('api/photos')
       .then(res => res.json())
-      .then(images => this.handleGalleryState(images, true));
+      .then(images => this.handleGalleryState(images, "date-newest", true));
   }
 
   //Called whenever there is a change to gallery (Search, sort, etc)
   //Images must be an array of images
-  handleGalleryState(images, initialMount) {
+  handleGalleryState(images, sortMethod, initialMount) {
     if (initialMount) {
       this.sortByDate(images, true);
     }
@@ -61,6 +61,7 @@ class Photos extends Component {
         currentPage: 1,
         numPages: imagePages.length,
         loadedImages: [],
+        sortMethod: "date-newest"
       });
     } else {
       this.setState({ 
@@ -69,6 +70,7 @@ class Photos extends Component {
         currentPage: 1,
         numPages: imagePages.length,
         loadedImages: [],
+        sortMethod: sortMethod
       });
     }
   }
@@ -130,7 +132,7 @@ class Photos extends Component {
       this.sortByTag(images);
     }
 
-    this.handleGalleryState(images, false);
+    this.handleGalleryState(images, command, false);
   }
 
   search(phrase) {
@@ -146,7 +148,7 @@ class Photos extends Component {
             || this.searchTags(this.state.imageBase[i].tags, phrase))
           images.push(this.state.imageBase[i]);
       }
-      this.handleGalleryState(images, false);
+      this.handleGalleryState(images, this.state.sortMethod, false);
     }
   }
 
@@ -182,13 +184,28 @@ class Photos extends Component {
   // Image will be rendered once loading is complete
   onLoad(item) {
     console.log('Image Load');
-    this.setState(({ loadedImages }) => {
-      return { loadedImages: loadedImages.concat(item) }
+    var loadedImages = this.state.loadedImages.concat(item);
+    var command = this.state.sortMethod;
+
+    // Call sort function after adding last element, to eliminate random fluctuations in order caused by different loading speeds
+    if (loadedImages.length == this.state.displayedImages.length) {
+      if (command === "date-newest") {
+        this.sortByDate(loadedImages, true);
+      } else if (command === "date-oldest") {
+        this.sortByDate(loadedImages, false);
+      } else if (command === "tag") {
+        this.sortByTag(loadedImages);
+      }
+    }
+    console.log(loadedImages.length);
+    this.setState({
+      loadedImages: loadedImages
     })
   }
 
   render() {
     console.log('Gallery Render');
+    console.log(this.state.loadedImages.length);
     var options = [];
 
     const buttonStyle = {
@@ -212,7 +229,7 @@ class Photos extends Component {
 
     var images = [];
 
-    if (this.state.loadedImages) {
+    if (this.state.loadedImages.length == this.state.displayedImages.length) {
       images =
         this.state.loadedImages.map((i) => {
           i.customOverlay = (

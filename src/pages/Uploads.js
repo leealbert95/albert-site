@@ -73,7 +73,6 @@ class Uploads extends Component {
 		console.log(tags);
 	}
 
-
 	onFormSubmit(e) {
 		e.preventDefault();
 		if (this.state.imagefile === '') {
@@ -91,7 +90,7 @@ class Uploads extends Component {
 		data.append('location', this.state.address);
 		data.append('tags', this.state.tags);
 
-		fetch('api/photos/uploads', {
+		fetch('api/photos/', {
 			method: 'POST',
 			body: data
 		}).then(function(res) {
@@ -105,7 +104,7 @@ class Uploads extends Component {
 		console.log('Delete');
 		if (window.confirm('Are you sure you want to delete all photos?')) {
 			console.log('delete');
-			fetch('api/photos/delete', {
+			fetch('api/photos/delete_all', {
 				method: 'DELETE'
 			});
 		}
