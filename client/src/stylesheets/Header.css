@@ -1,0 +1,140 @@
+.Main-menu {
+  background: linear-gradient(#363636, black);
+  background-color: black;
+  height: 70px;
+  color: black;
+}
+
+.Main-menu > div {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.Main-menu > div > h1 {
+    display: inline-block;
+    line-height: 40px;
+    margin: auto;
+    margin-left: 7%;
+    margin-bottom: 10%;
+}
+
+#main-logo {
+  height: 55px;
+  width: 270px;
+  padding-top: 5px;
+}
+
+.Main-menu .Social {
+    margin-left: -10px;
+    padding-right: 40px;
+    display: inline-block;
+    padding-top: 17px;
+    float: right;
+}
+
+.Main-menu .Social img {
+  height: 30px;
+  width: 30px;
+  outline: none;
+}
+
+ul {
+  width: 80px;
+  list-style-type: none;
+  display: inline-block;
+  float: right;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+li {
+  width: 80px;
+  height: 70px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  transition: all 0.15s ease-in;
+}
+
+li > a {
+  color: black;
+  text-decoration: none;
+}
+
+a > div {
+  top: 0;
+  height: 70px;
+  width: 80px;
+}
+
+
+li:hover {
+  opacity: 0.5;
+}
+
+.sidebar-filler {
+  height: 100%;
+  width: 80px;
+  border-right: 1px solid;
+}
+
+#menu-icon {
+  height: 40px;
+  width: 40px;
+  margin: 15px; 
+}
+
+#about {
+  margin-top: 5px;
+  height: 40px;
+  width: 40px;
+  padding: 1px;
+  border-radius: 50%;
+  background-color: black; 
+}
+
+#menu-item {
+  margin-top: 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.dropdown {
+    width: 80px;
+    height: 70px;
+    display: inline-block;
+    cursor: pointer;
+    cursor: hand;
+    float: left;
+    border-right: 1px solid; 
+    border-color: white;
+}
+
+.dropdown__content {
+    width: 80px;
+    height: 660px;
+    margin-top: -4px;
+    margin-left: -80px;
+    background-color: white;
+    transition: margin-left 0.5s;
+    display: block;;
+    position: absolute;   
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+}
+
+.App-intro {
+  font-size: large;
+}
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
