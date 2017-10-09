@@ -7,6 +7,7 @@ import Home from '../pages/Home.js';
 import About from '../pages/About.js';
 import PhotosContainer from '../containers/PhotosContainer.js';
 import PlacesContainer from '../containers/PlacesContainer.js';
+import Uploads from '../pages/Uploads.js';
 import '../stylesheets/Transition.css';
 
 class RouteHandler extends Component {
@@ -35,6 +36,7 @@ class RouteHandler extends Component {
             <Route path='/gallery' component={PhotosContainer}/>
             <Route path='/places' component={PlacesContainer}/>
             <Route path='/resume' component={Resume}/>
+            <Route path='/uploads' component={Uploads}/>
           </Switch>
         </CSSTransition> 
       </TransitionGroup>
