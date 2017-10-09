@@ -12,11 +12,10 @@ class Photos extends Component {
     this.state = {
       imageBase: [], // Holds all photos returned by initial GET request, to eliminate the need for more GET requests 
       images: [], // Holds current state's photos, contents may change depending on user's search and sort options
-      displayedImages: [], // Holds current photos to display (for smoother performance) 
-      loadedImages: [],
+      displayedImages: [], // Holds current photos to display 
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 20,
+      MAX_DISPLAY: 7,
     };
     
     this.onButtonClick = this.onButtonClick.bind(this); 
@@ -30,12 +29,12 @@ class Photos extends Component {
     console.log(typeof this.props.getCoordinates);
     fetch('api/photos')
       .then(res => res.json())
-      .then(images => this.handleGalleryState(images, "date-newest", true));
+      .then(images => this.handleGalleryState(images, true));
   }
 
   //Called whenever there is a change to gallery (Search, sort, etc)
   //Images must be an array of images
-  handleGalleryState(images, sortMethod, initialMount) {
+  handleGalleryState(images, initialMount) {
     if (initialMount) {
       this.sortByDate(images, true);
     }
@@ -60,8 +59,6 @@ class Photos extends Component {
         displayedImages: imagePages[0], 
         currentPage: 1,
         numPages: imagePages.length,
-        loadedImages: [],
-        sortMethod: "date-newest"
       });
     } else {
       this.setState({ 
@@ -69,8 +66,6 @@ class Photos extends Component {
         displayedImages: imagePages[0], 
         currentPage: 1,
         numPages: imagePages.length,
-        loadedImages: [],
-        sortMethod: sortMethod
       });
     }
   }
@@ -132,7 +127,7 @@ class Photos extends Component {
       this.sortByTag(images);
     }
 
-    this.handleGalleryState(images, command, false);
+    this.handleGalleryState(images, false);
   }
 
   search(phrase) {
@@ -148,7 +143,7 @@ class Photos extends Component {
             || this.searchTags(this.state.imageBase[i].tags, phrase))
           images.push(this.state.imageBase[i]);
       }
-      this.handleGalleryState(images, this.state.sortMethod, false);
+      this.handleGalleryState(images, false);
     }
   }
 
@@ -181,31 +176,9 @@ class Photos extends Component {
     this.search(phrase);
   }
 
-  // Image will be rendered once loading is complete
-  onLoad(item) {
-    console.log('Image Load');
-    var loadedImages = this.state.loadedImages.concat(item);
-    var command = this.state.sortMethod;
-
-    // Call sort function after adding last element, to eliminate random fluctuations in order caused by different loading speeds
-    if (loadedImages.length == this.state.displayedImages.length) {
-      if (command === "date-newest") {
-        this.sortByDate(loadedImages, true);
-      } else if (command === "date-oldest") {
-        this.sortByDate(loadedImages, false);
-      } else if (command === "tag") {
-        this.sortByTag(loadedImages);
-      }
-    }
-    console.log(loadedImages.length);
-    this.setState({
-      loadedImages: loadedImages
-    })
-  }
 
   render() {
     console.log('Gallery Render');
-    console.log(this.state.loadedImages.length);
     var options = [];
 
     const buttonStyle = {
@@ -229,9 +202,9 @@ class Photos extends Component {
 
     var images = [];
 
-    if (this.state.loadedImages.length == this.state.displayedImages.length) {
+    if (this.state.displayedImages) {
       images =
-        this.state.loadedImages.map((i) => {
+        this.state.displayedImages.map((i) => {
           i.customOverlay = (
             <div style={captionStyle}>
             <div>{i.caption}</div>
@@ -251,7 +224,7 @@ class Photos extends Component {
           <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
             <label>Sort By: </label>
             <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, }} ref="sortSelector">
-              <option style = {{  }} value="date-newest" >Date (Newest)</option>
+              <option value="date-newest" >Date (Newest)</option>
               <option value="date-oldest">Date (Oldest)</option>    
               <option value="tag">Tag</option>
             </select>
@@ -285,12 +258,6 @@ class Photos extends Component {
             onButtonClick={this.onButtonClick}
             showLightboxThumbnails={false}
           />
-        </div>
-        <div style={{ display: "none" }}>
-          //Let images load in background first so that they can be rendered when fully loaded
-          {this.state.displayedImages.map((item, i) =>
-            <img src={item.src} onLoad={this.onLoad.bind(this, item)} key={i} />
-          )}
         </div>
       </div>
     );

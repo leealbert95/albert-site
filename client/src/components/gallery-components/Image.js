@@ -7,7 +7,8 @@ class Image extends Component {
         super(props);
 
         this.state = {
-            hover: false
+            hover: false,
+            loadedImage: '',
         };
     }
 
@@ -99,6 +100,12 @@ class Image extends Component {
         );
     }
 
+    onLoad (item) {
+        this.setState({
+            loadedImage: item
+        })
+    }
+
     render () {
         var tags = (!this.props.item.tags) ? <noscript/> :
                 this.props.item.tags.map((tag) => {
@@ -185,8 +192,11 @@ class Image extends Component {
                      (e) => this.props.onClick.call(this, this.props.index, e) : null}>
                 <img
             key={"img-"+this.props.index}
-            src={this.props.item.thumbnail} title={this.props.item.caption}
+            src={this.state.loadedImage.thumbnail} title={this.state.loadedImage.caption}
             style={this.thumbnailStyle()} />
+                </div>
+                <div style={{ display: "none" }}>
+                    <img src={this.props.item.thumbnail} onLoad={this.onLoad.bind(this, this.props.item)}/>
                 </div>
                 </div>
         );
