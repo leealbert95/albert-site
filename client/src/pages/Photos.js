@@ -15,7 +15,7 @@ class Photos extends Component {
       displayedImages: [], // Holds current photos to display 
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 7,
+      MAX_DISPLAY: 20,
     };
     
     this.onButtonClick = this.onButtonClick.bind(this); 
