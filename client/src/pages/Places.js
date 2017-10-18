@@ -13,7 +13,7 @@ class Places extends Component {
   }
 
   componentDidMount() {
-    fetch('api/places')
+    fetch('/api/places')
       .then(res => res.json())
       .then(markers => this.setState({ markers }));
   }

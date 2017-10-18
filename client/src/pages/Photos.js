@@ -15,7 +15,7 @@ class Photos extends Component {
       displayedImages: [], // Holds current photos to display 
       currentPage: 1,
       numPages: '',
-      MAX_DISPLAY: 7,
+      MAX_DISPLAY: 20,
     };
     
     this.onButtonClick = this.onButtonClick.bind(this); 
@@ -27,7 +27,7 @@ class Photos extends Component {
   componentDidMount() {
     console.log(typeof this.props.resetCoordinates);
     console.log(typeof this.props.getCoordinates);
-    fetch('api/photos')
+    fetch('/api/photos')
       .then(res => res.json())
       .then(images => this.handleGalleryState(images, true));
   }
@@ -182,7 +182,7 @@ class Photos extends Component {
     var options = [];
 
     const buttonStyle = {
-      border: "none", borderRadius: "7px", background: "linear-gradient(gray, black)", backgroundColor: "#4f4f4f", color: "white", cursor: "pointer"
+      border: "none", borderRadius: "7px", backgroundColor: "black", color: "white", cursor: "pointer"
     }
 
     for (var i = 1; i <= this.state.numPages; i++) {
@@ -221,9 +221,12 @@ class Photos extends Component {
     return (
       <div className="photos-container">
         <div className="gallery-options">
+          <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10, }}>
+            <Link to="/projects/travel">Travel Home</Link>
+          </div>
           <div style={{ ...buttonStyle, display: "inline-block", marginLeft: 10 }}>
             <label>Sort By: </label>
-            <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, }} ref="sortSelector">
+            <select id="mySelect" onChange = {this.sortGallery} style={{ ...buttonStyle, height: "100%"}} ref="sortSelector">
               <option value="date-newest" >Date (Newest)</option>
               <option value="date-oldest">Date (Oldest)</option>    
               <option value="tag">Tag</option>
@@ -238,7 +241,7 @@ class Photos extends Component {
           <span/>
           <form onSubmit={this.onSearch}>
             <input style={{ borderRadius: "7px", }} type="search" placeholder="Enter search" ref="search"/>
-            <input style={buttonStyle} value="Search" type="submit"/>
+            <input style={{...buttonStyle, height: "100%",}} value="Search" type="submit"/>
           </form>
         </div>
         <div style={{  

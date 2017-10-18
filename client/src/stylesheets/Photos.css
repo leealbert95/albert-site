@@ -3,6 +3,7 @@
 	height: 630px; 
 	overflow: visible; 
 	background-color: black;
+	font-family: "Tahoma";
 }
 
 .photos-container .gallery-options {
@@ -27,4 +28,11 @@
 	float: right; 
 	height: 100%; 
 	margin-right: 10px;
+}
+
+.photos-container .gallery-options a {
+	font-size: 14px;
+	padding: 5px;
+	color: white;
+	text-decoration: none;
 }

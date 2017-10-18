@@ -5,6 +5,8 @@ import Test from '../pages/Test.js';
 import Resume from '../pages/Resume.js'
 import Home from '../pages/Home.js';
 import About from '../pages/About.js';
+import Projects from '../pages/Projects.js';
+import TravelLog from '../pages/TravelLog.js';
 import PhotosContainer from '../containers/PhotosContainer.js';
 import PlacesContainer from '../containers/PlacesContainer.js';
 import '../stylesheets/Transition.css';
@@ -32,9 +34,11 @@ class RouteHandler extends Component {
             <Route exact path='/' component={Home}/>
             <Route path='/test' component={Test}/>
             <Route path='/about' component={About}/>
-            <Route path='/gallery' component={PhotosContainer}/>
-            <Route path='/places' component={PlacesContainer}/>
             <Route path='/resume' component={Resume}/>
+            <Route exact path='/projects' component={Projects}/>
+            <Route exact path='/projects/travel' component={TravelLog}/>
+            <Route path='/projects/travel/gallery' component={PhotosContainer}/>
+            <Route path='/projects/travel/places' component={PlacesContainer}/>
           </Switch>
         </CSSTransition> 
       </TransitionGroup>

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import GithubLogo from '../img/iconmonstr-github-1.svg';
 import FbLogo from '../img/iconmonstr-facebook-1.svg';
 import LinkedInLogo from '../img/iconmonstr-linkedin-1.svg';
+import ProfilePicture from '../img/profile_v2.jpg';
 import MainLogo from '../img/signature.svg';
 import MenuIcon from '../img/iconmonstr-menu-1.svg';
-import GalleryIcon from '../img/iconmonstr-picture-1.svg';
-import PlacesIcon from '../img/iconmonstr-globe-5.svg';
-import ProfilePicture from '../img/profile_v2.jpg';
-import BlogIcon from '../img/iconmonstr-book-18.svg';
 import ResumeIcon from'../img/iconmonstr-note-38.svg';
+import ProjectsIcon from '../img/iconmonstr-school-18.svg';
 import { Link } from 'react-router-dom';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import '../stylesheets/Header.css';
@@ -71,11 +69,8 @@ class Header extends Component {
                 <li style={this.props.location.pathname == '/about' ? activeStyle : {} }>
                   <Link to='/about' title="About"><div><img id="about" src={ProfilePicture}/>About</div></Link>
                 </li>
-                <li style={this.props.location.pathname == '/gallery' ? activeStyle : {} }>
-                  <Link to='/gallery' title="Gallery"><div><img id="menu-item" src={GalleryIcon}/>Gallery</div></Link>
-                </li>
-                <li style={this.props.location.pathname == '/places' ? activeStyle : {} }>
-                  <Link to='/places' title="Places"><div><img id="menu-item" src={PlacesIcon}/>Places</div></Link>
+                <li style={this.props.location.pathname == '/projects' ? activeStyle : {} }>
+                  <Link to='/projects' title="Projects"><div><img id="menu-item" src={ProjectsIcon}/>Projects</div></Link>
                 </li>
                 <li style={this.props.location.pathname == '/resume' ? activeStyle : {} }>
                   <Link to='/resume' title="Resume"><div><img id="menu-item" src={ResumeIcon}/>Resume</div></Link>

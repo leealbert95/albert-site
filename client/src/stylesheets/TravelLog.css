@@ -1,0 +1,42 @@
+.travel-log {
+	height: 660px;
+	background-color: rgba(255, 255, 255, 0);
+	width: 100%;
+	padding-top: 40px;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.travel-home {
+	width: 50%;
+	height: 80%;
+	margin-left: 25%;
+	margin-top: 6%;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 50px;
+	text-align: center;
+}
+
+.travel-home h1 {
+	padding-top: 10%;
+	font-size: 50px;
+	font-family: "Tahoma";
+}
+
+.travel-menu {
+	height: 100%;
+	width: 100%;
+	justify-content: space-around;
+}
+
+.travel-menu img {
+	display: inline-block; 
+	width: 100px; 
+	height: 100px;
+	margin: 80px;
+	transition: all 0.25s ease-in-out;
+}
+
+.travel-menu img:hover {
+	transform: scale(1.2, 1.2);
+}
